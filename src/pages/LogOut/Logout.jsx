@@ -30,9 +30,9 @@ const Logout = () => {
 	}
 
 	return (
-		<div className='mt-auto '>
+		<div className='mt-0  '>
 			
-				<BiLogOut className="w-6 h-6 text-red-700 cursor-pointer" onClick={logOut} />
+				<BiLogOut className="w-8 h-8 text-red-700 cursor-pointer" onClick={logOut} />
 			
 			
 			<Toaster/>

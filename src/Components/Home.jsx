@@ -1,222 +1,194 @@
-import React, { useEffect, useState } from 'react';
-import { 
-  GitBranch,
-  BarChart2,
-  Link,
-  Binary,
-  Share2,
-  Package,
-  Brain
-} from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+
 import LogOut from '../pages/LogOut/Logout'
-
-const Ring = ({ radius, color }) => (
-  <div 
-    className="absolute rounded-full border-8"
-    style={{
-      width: `${radius}px`,
-      height: `${radius}px`,
-      borderColor: color,
-      boxShadow: `0 0 10px ${color}`,
-    }}
-  />
-);
-
+import SynergyIcon from '/SynergyLogo-removebg-preview 1.svg';
+import { Link } from 'react-router-dom';
+import 'bootstrap-icons/font/bootstrap-icons.min.css';
+import ComparisonTable from './ComparisonTable';
+import InstagramIcon from '/instagram-logo-instagram-icon-transparent-free-png 1.svg'
+import LinkedInIcon from '/linkedin-logo-linkedin-icon-transparent-free-png 1.svg'
+import YoutubeIcon from '/youtube-icon-512x511-vupixj7v-removebg-preview 1.svg'
+import { Menu, X } from "lucide-react";
 const Home = () => {
-  // Define each ring's properties with fixed pixel sizes
-  const rings = [
-    { radius: 50, color: '#3B82F6' },  // Blue - innermost ring
-    { radius: 120, color: '#10B981' },  // Green - second ring
-    { radius: 170, color: '#EC4899' },  // Pink - third ring
-    { radius: 220, color: '#F97316' },  // Orange - fourth ring
-    { radius: 270, color: '#A855F7' },  // Purple - fifth ring
-    { radius: 320, color: '#F43F5E' }   // Rose - outermost ring
-  ];
-
-  const orbitElements = [
-    { name: 'Arrays', icon: <Package />, ringIndex: 0, duration: '20s', nodeColor: 'bg-blue-500' },
-    { name: 'Linked List', icon: <Link />, ringIndex: 1, duration: '25s', nodeColor: 'bg-green-500' },
-    { name: 'Heaps', icon: <GitBranch />, ringIndex: 2, duration: '30s', nodeColor: 'bg-pink-500' },
-    { name: 'Stacks', icon: <BarChart2 />, ringIndex: 3, duration: '35s', nodeColor: 'bg-orange-500' },
-    { name: 'Binary Tree', icon: <Binary />, ringIndex: 4, duration: '40s', nodeColor: 'bg-purple-500' },
-    { name: 'Graph', icon: <Share2 />, ringIndex: 5, duration: '45s', nodeColor: 'bg-rose-500' }
-  ];
-
-  const [blink,setBlink] = useState(0);
-
-  const selectedBlink = (id) => {
-
-    setBlink(id)
-
-
-    if(id == 1)
-      window.location.href = '/BSAlgo';
-    if(id == 2)
-      window.location.href = '/MergeSortAlgo';
-    if(id == 3)
-      window.location.href = '/BubbleSortAlgo';
-    if(id == 4)
-      window.location.href = '/InsertionSortAlgo';
-    if(id == 5)
-      window.location.href = '/MergeSort';
-    if(id == 6)
-      window.location.href = '/NumberOfPaths';
-    if(id == 7)
-      window.location.href = '/SelectionSortAlgo';
-    if(id == 8)
-      window.location.href = '/LeftRotateArray';
-    if(id == 9)
-      window.location.href = '/SecondLargestElement';
-    if(id == 10)
-      window.location.href = '/SpiralMatrix';
-    if(id == 11)
-      window.location.href = '/QuickSortAlgo';
-    if(id == 12)
-      window.location.href = '/TwoPointerAlgo';
-    if(id == 13)
-      window.location.href = '/LargestElement';
-    if(id == 14)
-      window.location.href = '/SmallestElement';
-  }
-
-  var concept1  = [
-    
-    {id:1,text:'Binary Search'},
-    {id:2,text:'Merge Sort'},
-    {id:3,text:'Bubble Sort'},
-    {id:4,text:'Insertion Sort'},
-    {id:5,text:'Merge Sort function'},
-    {id:6,text:'Number Of Paths'},
-    {id:7,text:'Selection Sort'},
-
-    
-
-  ]
-
-
-  var concept2  = [
-    
-    
-    {id:8,text:'LeftRotateArray'},
-    {id:9,text:'Second Largest Element'},
-    {id:10,text:'Spiral Matrix'},
-    {id:11,text:'Quick Sort'},
-    {id:12,text:'Two Pointer'},
-    {id:13,text:'Largest Element'},
-    {id:14,text:'Smallest Element'},
-  ]
-
 
   
 
+  const [menuOpen,setMenuOpen] = useState(false)
+
+  const menuRef = useRef(null);
+
+  // Close menu if clicked outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    };
+
+    if (menuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [menuOpen]);
+
+  
+  
+ 
+  const fullText = [
+    { text: 'Everything you need ', color: 'text-white', fontStyle: 'font-normal' },
+    { text: 'at one place ', color: 'text-white', fontStyle: 'font-normal' },
+    { text: 'to Master Physics Chemistry ', color: 'text-[#20C030]', fontStyle: 'font-semibold italic' },
+    { text: 'and Mathematics.', color: 'text-[#20C030]', fontStyle: 'font-semibold italic' },
+  ];
+
+  const [displayedText, setDisplayedText] = useState('');
+  const [index, setIndex] = useState(0);
+  const [subIndex, setSubIndex] = useState(0);
+
+  useEffect(() => {
+    if (index < fullText.length && subIndex < fullText[index].text.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedText((prev) => prev + fullText[index].text[subIndex]);
+        setSubIndex(subIndex + 1);
+      }, 100);
+      return () => clearTimeout(timeout);
+    } else if (subIndex === fullText[index]?.text?.length) {
+      if (index < fullText.length - 1) {
+        setTimeout(() => {
+          setIndex(index + 1);
+          setSubIndex(0);
+          setDisplayedText('');
+        }, 500);
+      } else {
+        setTimeout(() => {
+          setIndex(0);
+          setSubIndex(0);
+          setDisplayedText('');
+        }, 1000);
+      }
+    }
+  }, [index, subIndex, fullText]);
 
   return (
 
-    <div className="bg-gray-900 w-screen min-h-[180vh] lg:min-h-screen flex flex-col items-center overflow-hidden px-4">
-    {/* Title */}
-    <h1 className="text-2xl font-bold text-center text-white mt-5">Algo Vision</h1>
-  
-    {/* Logout Button */}
-    <div className="w-full flex  justify-end mt-4">
-      <LogOut />
-    </div>
-  
-    {/* Main Content */}
-    <div className="flex flex-col lg:flex-row items-center justify-center w-full mt-10 space-y-5  lg:mt-20  lg:space-y-0 lg:space-x-72">
-  
-      {/* Solar System */}
-      <div className="relative flex items-center justify-center w-full lg:w-auto min-h-[400px] lg:min-h-[600px]">
-        {rings.map((ring, index) => (
-          <Ring key={index} {...ring} />
-        ))}
-  
-        {/* Central DSA */}
-        <div className="absolute z-50 w-24 lg:w-32 h-24 lg:h-32 bg-yellow-500 rounded-full flex items-center justify-center animate-pulse shadow-lg shadow-yellow-500/50">
-          <div className="text-gray-900 font-bold text-lg lg:text-2xl flex flex-col items-center gap-2">
-            <Brain className="w-6 lg:w-8 h-6 lg:h-8" />
-            <span>DSA</span>
-          </div>
+    <div className="bg-[#090707] w-screen min-h-screen lg:min-h-screen flex flex-col items-center overflow-hidden px-4">
+    
+    <div className="w-full flex flex-row justify-between items-center mt-4">
+      <img src={SynergyIcon} width={150} height={150} className="ml-0" />
+
+       {/* Desktop Navigation */}
+       <div className="hidden md:flex flex-row gap-10 justify-center items-center mr-5">
+        <Link to="/courses" className="text-white font-medium text-2xl">Courses</Link>
+        <LogOut className="cursor-pointer" />
+      </div>
+
+      {/* Mobile Menu Button */}
+      <div className="md:hidden flex items-center">
+        <button onClick={() => setMenuOpen(!menuOpen)} className="text-white">
+          {menuOpen ? <X size={32} /> : <Menu size={32} />}
+        </button>
+      </div>
+
+     
+      {/* Mobile Dropdown Menu (Click Outside Close) */}
+      {menuOpen && (
+        <div
+          ref={menuRef}
+          className="absolute top-16 right-4 bg-gray-800 p-4 rounded-lg shadow-lg flex flex-col gap-4 md:hidden"
+        >
+          <Link to="/courses" className="text-white text-lg" onClick={() => setMenuOpen(false)}>Notes</Link>
+          <LogOut className="cursor-pointer" onClick={() => setMenuOpen(false)} />
         </div>
-  
-        {/* Orbiting Elements */}
-        {orbitElements.map((item) => (
-          <div
-            key={item.name}
-            className="absolute"
-            style={{
-              width: `${rings[item.ringIndex].radius}px`,
-              height: `${rings[item.ringIndex].radius}px`,
-              animation: `spin ${item.duration} linear infinite`
-            }}
-          >
-            <div 
-              className={`absolute -top-6 left-1/2 transform -translate-x-1/2 ${item.nodeColor} 
-                          p-3 rounded-full text-white hover:scale-110 transition-transform 
-                          cursor-pointer flex flex-col items-center gap-1 z-20`}
-              style={{
-                animation: `counter-spin ${item.duration} linear infinite`,
-                boxShadow: `0 0 15px ${rings[item.ringIndex].color}`
-              }}
-            >
-              {item.icon}
-              <span className="text-xs whitespace-nowrap font-medium">{item.name}</span>
+      )}
+
+    </div>
+
+    <div className='text-center text-white  text-2xl mt-5 md:text-4xl max-w-full md:max-w-4xl font-mono mb-6 md:mb-10 h-[80px] md:h-[100px]'>
+          {fullText.slice(0, index + 1).map((item, idx) => (
+            <span key={idx} className={`${item.color} ${item.fontStyle}`}>
+              {index === idx ? displayedText : item.text}
+            </span>
+          ))}
+    </div>
+
+    <div className='flex flex-col mt-14 gap-5'>
+      <h1 className='text-white font-bold text-2xl text-center'>What Makes Us Different from Others ?</h1>
+        
+      <ComparisonTable/>
+    </div>
+    
+      
+
+
+    <footer className="bg-[#0f0c0c] mt-20 w-screen  justify-start items-start transition-all duration-700 ease-in-out animate-fade-in-slide-up h-auto lg:h-[480px] flex flex-col lg:flex-row gap-5 lg:gap-[50px] p-5  overflow-hidden">
+      <div className="flex flex-col  mt-0 w-screen items-center justify-center lg:w-[300px]">
+        <img src={SynergyIcon} alt="Logo" width={117} height={117} className="self-center " />
+        <div className=" text-sm md:text-md  sm:w-32 font-instrument text-center font-semibold text-[#9A9494] ">
+          Best Place to Master Physics Chemistry and Mathematics.
+        </div>
+
+        
+      </div>
+
+
+
+
+      
+          <div className="flex flex-col gap-[15px] w-full lg:w-[300px] ">
+            <h1 className="text-[#0B02FF] text-lg font-semibold md:text-xl mt-[10px] lg:mt-[30px]">Quick Links</h1>
+            <div className="flex flex-col gap-[20px]">
+              <Link to="/about" className="text-white text-base font md:text-lg cursor-pointer">Company</Link>
+              <Link to="/about" className="text-white text-base font md:text-lg cursor-pointer">About</Link>
+              <Link to="/Contact" className="text-white text-base md:text-lg cursor-pointer">Contact</Link>
+              <Link to="/PrivacyPolicy" className="text-white text-base md:text-lg cursor-pointer">Privacy Policy</Link>
+              <Link to="/Tnc" className="text-white text-base md:text-lg cursor-pointer">Terms And Conditions</Link>
+              <Link to="/notes" className="text-white text-base md:text-lg cursor-pointer">Notes</Link>
+          
             </div>
           </div>
-        ))}
-      </div>
-  
-      {/* Text Section (Separated Below Solar System in Mobile) */}
-      <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center w-full lg:w-auto justify-center pt-10 lg:pt-0">
-  
-        <div className="flex flex-col gap-8 items-center w-full lg:w-[300px] text-center">
-          {concept1.map((item) => (
-            <div key={item.id} className="inline-block relative">
-              <h1 
-                onClick={() => selectedBlink(item.id)}
-                className="text-xl font-semibold text-white cursor-pointer"
-              >
-                {item.text}
-              </h1>
-              {blink === item.id && (
-                <div className="w-full h-0.5 bg-green-400 animate-[glitter_0.5s_infinite_alternate] mt-0.5"></div>
-              )}
+
+          <div className="flex flex-col gap-[30px] w-full lg:w-[200px]">
+            <h1 className="text-[#0B02FF] text-lg font-semibold md:text-xl mt-[10px] lg:mt-[30px]">Navigate To</h1>
+            <div className="flex flex-col gap-[20px]">
+              <Link to="/CSCluster" className="text-white text-base md:text-lg cursor-pointer">Activities</Link>
+              <Link to="/ECCluster" className="text-white text-base md:text-lg cursor-pointer">Mentorship Programs</Link>
+              <Link to="/ECCluster" className="text-white text-base md:text-lg cursor-pointer">Sessions</Link>
+
             </div>
-          ))}
-        </div>  
-  
-        <div className="flex flex-col gap-8 items-center w-full lg:w-[300px] text-center">
-          {concept2.map((item) => (
-            <div key={item.id} className="inline-block relative">
-              <h1 
-                onClick={() => selectedBlink(item.id)}
-                className="text-xl font-semibold text-white cursor-pointer"
-              >
-                {item.text}
-              </h1>
-              {blink === item.id && (
-                <div className="w-full h-0.5 bg-green-400 animate-[glitter_0.5s_infinite_alternate] mt-0.5"></div>
-              )}
+          </div>
+
+          <div className="flex flex-col gap-[15px] w-full lg:w-[200px] items-start">
+            <h1 className="text-[#0B02FF] text-lg font-semibold md:text-xl mt-[10px] lg:mt-[30px]">
+              Follow Us On
+            </h1>
+            <div className="flex flex-row items-center gap-3">
+              <img src={InstagramIcon} className="w-10 h-10 md:w-12 md:h-14 object-contain" />
+              <img src={LinkedInIcon} className="w-10 h-10 md:w-12 md:h-14 object-contain" />
+              <img src={YoutubeIcon} className="w-10 h-10 md:w-12 md:h-14 object-contain" />
             </div>
-          ))}
-        </div>  
-  
-      </div>
-  
-      <style>
-        {`
-          @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-          }
-          @keyframes counter-spin {
-            from { transform: rotate(360deg) translateX(-50%); }
-            to { transform: rotate(0deg) translateX(-50%); }
-          }
-        `}
-      </style>
-  
+          </div>
+
+
+
+
+          <div className="flex flex-row items-center gap-2 mt-6">
+            <i className="bi bi-c-circle text-white text-base md:text-lg"></i>
+            <h1 className="text-white text-sm md:text-lg leading-none">
+              2025 by <span className="text-[#0B02FF] font-semibold">Synergy Learning</span>
+            </h1>
+          </div>
+
+
+
+        </footer>
+
     </div>
-  </div>
+
+   
+
   
   
   

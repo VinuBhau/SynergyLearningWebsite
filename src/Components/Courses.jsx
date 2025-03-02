@@ -1,0 +1,298 @@
+import React, { useState } from 'react'
+import SynergyIcon from '/SynergyLogo-removebg-preview 1.svg';
+import homeIcon from '/icons8-home-48.png';
+import sessionIcon from '/icons8-video-camera-64.png'
+import coursesIcon from '/courses.png'
+import fundamentalsIcon from '/courses/SBSPHY.svg'
+import fundamentalsOfPhysics from '/courses/FUNDAMENTALS OF PHYSICS.svg'
+import SheetIcon from '/courses/icons8-sheet-50 1.svg'
+import fundamentalsOfChemistry from '/courses/FUNDAMENTALS OF CHEMISTRY.svg'
+import fundamentalsOfMathematics from '/courses/FUNDAMENTALS OF MATHEMATICS.svg'
+import ChemistryIcon from '/courses/ChemistryIcon.png'
+import PhysicsIcon from '/courses/physicsIcon.png'
+import MathematicsIcon from '/courses/MathematicsIcon.png'
+import { useNavigate } from 'react-router-dom';
+
+
+
+
+
+const Courses = () => {
+
+    const navigate = useNavigate();
+
+    const [home,setHome] = useState(true);
+    const [session,setSession] = useState(false);
+
+    const TurnOnHome = () =>{
+
+        setHome(true);
+        setSession(false);
+    }
+
+    const TurnOnSession = () =>{
+
+        setHome(false);
+        setSession(true);
+    }
+
+
+    const [eleventh,seteleventh] = useState(true);
+    const [twelth,settwelth] = useState(false);
+
+    const firstSet = ()=>{
+        seteleventh(true);
+        settwelth(false);
+    }
+
+    const SecondSet = ()=>{
+        seteleventh(false);
+        settwelth(true);
+    }
+
+
+    
+    const NavigateToNotesWithoutFundamentals = (topic,grade)=>{
+
+        sessionStorage.setItem("key",0);
+        sessionStorage.setItem("topic",topic);
+        sessionStorage.setItem("grade",grade);
+
+        
+        navigate('/notes')
+
+    }
+
+    const NavigateToNotes = (key,topic)=>{
+
+        sessionStorage.setItem("subtopic",key);
+        sessionStorage.setItem("topic",topic);
+        sessionStorage.setItem("key",1);
+        navigate('/notes')
+
+    }
+
+
+
+
+  return (
+    
+    <div className="bg-[#090707] w-screen min-h-screen lg:min-h-screen flex flex-col  overflow-hidden ">
+        
+        <div className='flex flex-row '>
+                <div className="bg-[#0F0C0C] flex flex-col gap-10 border-r border-[#645D5D] w-20 min-h-screen">
+
+                    <img src={SynergyIcon} width={60} height={60} className='mt-16 bg-black rounded-lg ml-1' />
+                    
+                    <div className='flex flex-col gap-4'>
+                        <div onClick={TurnOnHome} className={`w-19 h-20 hover:bg-gray-700 cursor-pointer hover:bg-opacity-80 flex items-center justify-center ${home ? 'bg-black border-l-2 border-orange-500':'' } `}>
+                            <div className='flex flex-col justify-center items-center '>
+                                <img src={homeIcon} width={30}  height={30}  />
+                                <h1 className='text-white'>Home</h1>
+                            </div>
+                        </div>
+                        <div  onClick={TurnOnSession} className={`w-19 h-20 hover:bg-gray-700 cursor-pointer hover:bg-opacity-80 flex items-center justify-center ${session ? 'bg-black  border-l-2 border-orange-500 ' : ''} `}>
+                            <div className='flex flex-col justify-center items-center'>
+                                <img src={sessionIcon} width={30}  height={30}  />
+                                <h1 className='text-white'>Sessions</h1>
+                            </div>
+
+                        </div>
+                    </div>
+                </div> 
+
+
+                <div className='flex flex-col w-screen  gap-20'>
+                    <div className='flex flex-row gap-5 justify-center items-center'>
+                        <h1 className='text-white  font-semibold text-2xl mt-5'>Explore Courses</h1>
+                        <img src={coursesIcon} width={50} height={50} className='mt-5' />
+                    </div>
+
+                    <div className=' flex flex-row gap-3  border-b-2 w-auto border-[#302121] '>
+                        <h1 className='text-white ml-10 text-lg font-medium'>Courses</h1>
+
+                        
+                                <div className='flex flex-row gap-2'>
+
+                                    <div onClick={firstSet} className={`w-20 cursor-pointer rounded-md ${eleventh ? 'bg-[#20C030]' : '' } `}>
+                                        <h1 className='text-white font-medium text-center' >11th</h1>
+                                    </div>
+
+                                    <div onClick={SecondSet} className={`w-20 cursor-pointer rounded-md ${twelth ? 'bg-[#20C030]' : '' } `}>
+                                        <h1 className='text-white font-medium text-center' >12th</h1>
+                                    </div>
+                                </div>
+
+                    </div>
+
+
+                    
+                    
+                        <div className='flex flex-row gap-20  ml-5 lg:ml-10  flex-wrap'>
+                            {eleventh ? 
+                    
+                            (<div onClick={()=>NavigateToNotes("Fundamentals","Physics")} className='flex flex-row flex-wrap gap-12'>
+                                <div className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#1D5455] rounded-lg border border-[#524c4c]'>
+                                    <img src={fundamentalsIcon} width={150} height={150} />
+                                    <img src={fundamentalsOfPhysics} width={200} height={200}/>
+
+                                    <div className='w-[287px] h-24 mt-2 flex flex-col gap-2 bg-[#191515] rounded-b-md'>
+                                        <h1 className='text-white mt-2 ml-4 font-medium text-lg'>Physics</h1>
+
+                                        <div className='flex flex-row gap-2'>
+                                            <img src={SheetIcon} width={20} height={20} className='ml-4' />
+                                            <h1 className='text-white font-medium'>5 Topics</h1>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div onClick={()=>NavigateToNotes("Fundamentals","Chemistry")} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#1A5677] rounded-md border border-[#524c4c]'>
+                                    <img src={fundamentalsIcon} width={150} height={150} />
+                                    <img src={fundamentalsOfChemistry} width={200} height={200}/>
+
+                                    <div className='w-[287px] h-24 mt-2 flex flex-col gap-2 bg-[#191515] rounded-b-md'>
+                                        <h1 className='text-white mt-2 ml-4 font-medium text-lg'>Chemistry</h1>
+
+                                        <div className='flex flex-row gap-2'>
+                                            <img src={SheetIcon} width={20} height={20} className='ml-4' />
+                                            <h1 className='text-white font-medium'>5 Topics</h1>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div  onClick={()=>NavigateToNotes("Fundamentals","Mathematics")} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#04011E] rounded-md border border-[#524c4c]'>
+                                    <img src={fundamentalsIcon} width={150} height={150} />
+                                    <img src={fundamentalsOfMathematics} width={200} height={200}/>
+
+                                    <div className='w-[287px] h-24 mt-2 flex flex-col gap-2 bg-[#191515] rounded-b-md'>
+                                        <h1 className='text-white mt-2 ml-4 font-medium text-lg'>Mathematics</h1>
+
+                                        <div className='flex flex-row gap-2'>
+                                            <img src={SheetIcon} width={20} height={20} className='ml-4' />
+                                            <h1 className='text-white font-medium'>5 Topics</h1>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div onClick={()=>NavigateToNotesWithoutFundamentals("Physics",11)} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#102e48] rounded-md border border-[#524c4c]'>
+                                    <img src={PhysicsIcon} width={130} height={130} />  
+                                    <h1 className='text-white font-medium'>CORE PHYSICS CONCEPTS</h1>
+
+
+                                    <div className='w-[287px] h-24 mt-2 flex flex-col gap-2 bg-[#191515] rounded-b-md'>
+                                        <h1 className='text-white mt-2 ml-4 font-medium text-lg'>11th PHYSICS</h1>
+
+                                        <div className='flex flex-row gap-2'>
+                                            <img src={SheetIcon} width={20} height={20} className='ml-4' />
+                                            <h1 className='text-white font-medium'>15 Topics</h1>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div onClick={()=>NavigateToNotesWithoutFundamentals("Chemistry",11)} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#1c4234] rounded-md border border-[#524c4c]'>
+                                    <img src={ChemistryIcon} width={130} height={130} />  
+                                    <h1 className='text-white font-medium'>CORE CHEMISTRY CONCEPTS</h1>
+
+                                    <div className='w-[287px] h-24 mt-2 flex flex-col gap-2 bg-[#191515] rounded-b-md'>
+                                        <h1 className='text-white mt-2 ml-4 font-medium text-lg'>11th Chemistry</h1>
+
+                                        <div className='flex flex-row gap-2'>
+                                            <img src={SheetIcon} width={20} height={20} className='ml-4' />
+                                            <h1 className='text-white font-medium'>15 Topics</h1>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div onClick={()=>NavigateToNotesWithoutFundamentals("Mathematics",11)} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#1d8732] rounded-md border border-[#524c4c]'>
+                                    <img src={MathematicsIcon} width={130} height={130} />  
+                                    <h1 className='text-white font-medium'>CORE MATHEMATICS CONCEPTS</h1>
+
+                                    <div className='w-[287px] h-24 mt-2 flex flex-col gap-2 bg-[#191515] rounded-b-md'>
+                                        <h1 className='text-white mt-2 ml-4 font-medium text-lg'>11th Mathematics</h1>
+
+                                        <div className='flex flex-row gap-2'>
+                                            <img src={SheetIcon} width={20} height={20} className='ml-4' />
+                                            <h1 className='text-white font-medium'>15 Topics</h1>
+                                        </div>
+                                    </div>
+
+                                </div>
+                        </div>
+                        ):null}
+                        
+
+                        {twelth ? 
+
+                        (
+                        <div onClick={()=>NavigateToNotesWithoutFundamentals("Physics",12)} className='flex flex-row flex-wrap  gap-12'>
+                            <div className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#102e48] rounded-md border border-[#524c4c]'>
+                                <img src={PhysicsIcon} width={130} height={130} />  
+                                <h1 className='text-white font-medium'>CORE PHYSICS CONCEPTS</h1>
+
+
+                                <div className='w-[287px] h-24 mt-2 flex flex-col gap-2 bg-[#191515] rounded-b-md'>
+                                    <h1 className='text-white mt-2 ml-4 font-medium text-lg'>12th PHYSICS</h1>
+
+                                    <div className='flex flex-row gap-2'>
+                                        <img src={SheetIcon} width={20} height={20} className='ml-4' />
+                                        <h1 className='text-white font-medium'>15 Topics</h1>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div onClick={()=>NavigateToNotesWithoutFundamentals("Chemistry",12)} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#1c4234] rounded-md border border-[#524c4c]'>
+                                <img src={ChemistryIcon} width={130} height={130} />  
+                                <h1 className='text-white font-medium'>CORE CHEMISTRY CONCEPTS</h1>
+
+                                <div className='w-[287px] h-24 mt-2 flex flex-col gap-2 bg-[#191515] rounded-b-md'>
+                                    <h1 className='text-white mt-2 ml-4 font-medium text-lg'>12th Chemistry</h1>
+
+                                    <div className='flex flex-row gap-2'>
+                                        <img src={SheetIcon} width={20} height={20} className='ml-4' />
+                                        <h1 className='text-white font-medium'>15 Topics</h1>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div onClick={()=>NavigateToNotesWithoutFundamentals("Mathematics",12)} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#1d8732] rounded-md border border-[#524c4c]'>
+                                <img src={MathematicsIcon} width={130} height={130} />  
+                                <h1 className='text-white font-medium'>CORE MATHEMATICS CONCEPTS</h1>
+
+                                <div className='w-[287px] h-24 mt-2 flex flex-col gap-2 bg-[#191515] rounded-b-md'>
+                                    <h1 className='text-white mt-2 ml-4 font-medium text-lg'>12th Mathematics</h1>
+
+                                    <div className='flex flex-row gap-2'>
+                                        <img src={SheetIcon} width={20} height={20} className='ml-4' />
+                                        <h1 className='text-white font-medium'>15 Topics</h1>
+                                    </div>
+                                </div>
+
+                            </div>
+                            </div>
+                        ):null}
+
+
+                    </div>
+                    
+                </div>
+
+                <div className='mt-10 h-20'>
+
+                </div>
+        </div>
+
+    </div>
+  )
+}
+
+export default Courses
+

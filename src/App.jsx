@@ -8,6 +8,8 @@ import SignUp from './pages/SignUp/SignUp'
 import ForgotPassword from './pages/forgotPassword/ForgotPassword'
 import ResetPassword from './pages/resetPassword/ResetPassword'
 import VerifyOTP from './pages/verifyOtp/verifyGmailOtp'
+import Courses from './Components/Courses'
+import Notes from './Components/Notes'
 
 
 function App() {
@@ -25,7 +27,8 @@ function App() {
         <Route path='/Verify-Gmail' element = { <verifyGmail/>} /> 
         <Route path='/verifyOTP' element = { <VerifyOTP/>} />
         <Route path='/forgot-password' element = { <ForgotPassword/>} />
-        
+        <Route path='/courses' element = { authUser == null? <Login/> : <Courses/>} />
+        <Route path='/notes' element = { authUser == null? <Login/> : <Notes/>} />
 
 
       </Routes>
