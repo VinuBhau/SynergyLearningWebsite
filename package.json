@@ -10,8 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.8.1",
     "bootstrap-icons": "^1.11.3",
     "daisyui": "^4.12.23",
+    "lodash": "^4.17.21",
     "lucide-react": "^0.472.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
