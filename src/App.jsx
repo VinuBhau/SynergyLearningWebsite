@@ -10,11 +10,16 @@ import ResetPassword from './pages/resetPassword/ResetPassword'
 import VerifyOTP from './pages/verifyOtp/verifyGmailOtp'
 import Courses from './Components/Courses'
 import Notes from './Components/Notes'
+import { useState } from 'react'
 
 
 function App() {
 
   const { authUser } = useAuthContext()
+
+  const [SubjectNumber,setSubjectNumber] = useState(0);
+  const [Sem,setSem] = useState(0);
+
 
   return (
     
@@ -27,8 +32,8 @@ function App() {
         <Route path='/Verify-Gmail' element = { <verifyGmail/>} /> 
         <Route path='/verifyOTP' element = { <VerifyOTP/>} />
         <Route path='/forgot-password' element = { <ForgotPassword/>} />
-        <Route path='/courses' element = { authUser == null? <Login/> : <Courses/>} />
-        <Route path='/notes' element = { authUser == null? <Login/> : <Notes/>} />
+        <Route path='/courses' element = { authUser == null? <Login/> : <Courses  />} />
+        <Route path='/notes' element = { authUser == null? <Login/> : <Notes   />} />
 
 
       </Routes>

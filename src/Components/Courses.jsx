@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SynergyIcon from '/SynergyLogo-removebg-preview 1.svg';
 import homeIcon from '/icons8-home-48.png';
 import sessionIcon from '/icons8-video-camera-64.png'
@@ -11,15 +11,14 @@ import fundamentalsOfMathematics from '/courses/FUNDAMENTALS OF MATHEMATICS.svg'
 import ChemistryIcon from '/courses/ChemistryIcon.png'
 import PhysicsIcon from '/courses/physicsIcon.png'
 import MathematicsIcon from '/courses/MathematicsIcon.png'
-import { useNavigate } from 'react-router-dom';
-
-
+import { Link, useNavigate } from 'react-router-dom';
 
 
 
 const Courses = () => {
 
     const navigate = useNavigate();
+    // const dispatch = useDispatch(); // Initialize Redux dispatch
 
     const [home,setHome] = useState(true);
     const [session,setSession] = useState(false);
@@ -51,26 +50,28 @@ const Courses = () => {
     }
 
 
-    
-    const NavigateToNotesWithoutFundamentals = (topic,grade)=>{
 
-        sessionStorage.setItem("key",0);
-        sessionStorage.setItem("topic",topic);
-        sessionStorage.setItem("grade",grade);
+    // const SubjectNumber = useSelector((state) => state.session.SubjectNumber);
+    // const Sem = useSelector((state) => state.session.Sem);
 
+
+
+    const NavigateToNotes = (key, grade) => {
         
-        navigate('/notes')
+        
+        
 
-    }
+        sessionStorage.setItem("SubjectNumber",key);
+        sessionStorage.setItem("Sem",grade);
 
-    const NavigateToNotes = (key,topic)=>{
+        setTimeout(() => {
+            navigate("/notes"); // ✅ Ensure state updates before navigation
+        }, 100);
+    };
 
-        sessionStorage.setItem("subtopic",key);
-        sessionStorage.setItem("topic",topic);
-        sessionStorage.setItem("key",1);
-        navigate('/notes')
 
-    }
+
+
 
 
 
@@ -85,12 +86,12 @@ const Courses = () => {
                     <img src={SynergyIcon} width={60} height={60} className='mt-16 bg-black rounded-lg ml-1' />
                     
                     <div className='flex flex-col gap-4'>
-                        <div onClick={TurnOnHome} className={`w-19 h-20 hover:bg-gray-700 cursor-pointer hover:bg-opacity-80 flex items-center justify-center ${home ? 'bg-black border-l-2 border-orange-500':'' } `}>
+                        <Link to='/' onClick={TurnOnHome} className={`w-19 h-20 hover:bg-gray-700 cursor-pointer hover:bg-opacity-80 flex items-center justify-center ${home ? 'bg-black border-l-2 border-orange-500':'' } `}>
                             <div className='flex flex-col justify-center items-center '>
                                 <img src={homeIcon} width={30}  height={30}  />
                                 <h1 className='text-white'>Home</h1>
                             </div>
-                        </div>
+                        </Link>
                         <div  onClick={TurnOnSession} className={`w-19 h-20 hover:bg-gray-700 cursor-pointer hover:bg-opacity-80 flex items-center justify-center ${session ? 'bg-black  border-l-2 border-orange-500 ' : ''} `}>
                             <div className='flex flex-col justify-center items-center'>
                                 <img src={sessionIcon} width={30}  height={30}  />
@@ -131,8 +132,8 @@ const Courses = () => {
                         <div className='flex flex-row gap-20  ml-5 lg:ml-10  flex-wrap'>
                             {eleventh ? 
                     
-                            (<div onClick={()=>NavigateToNotes("Fundamentals","Physics")} className='flex flex-row flex-wrap gap-12'>
-                                <div className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#1D5455] rounded-lg border border-[#524c4c]'>
+                            (<div  className='flex flex-row flex-wrap gap-12'>
+                                <div onClick={()=>NavigateToNotes(1,11)} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#1D5455] rounded-lg border border-[#524c4c]'>
                                     <img src={fundamentalsIcon} width={150} height={150} />
                                     <img src={fundamentalsOfPhysics} width={200} height={200}/>
 
@@ -147,7 +148,7 @@ const Courses = () => {
 
                                 </div>
 
-                                <div onClick={()=>NavigateToNotes("Fundamentals","Chemistry")} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#1A5677] rounded-md border border-[#524c4c]'>
+                                <div onClick={()=>NavigateToNotes(2,11)} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#1A5677] rounded-md border border-[#524c4c]'>
                                     <img src={fundamentalsIcon} width={150} height={150} />
                                     <img src={fundamentalsOfChemistry} width={200} height={200}/>
 
@@ -162,7 +163,7 @@ const Courses = () => {
 
                                 </div>
 
-                                <div  onClick={()=>NavigateToNotes("Fundamentals","Mathematics")} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#04011E] rounded-md border border-[#524c4c]'>
+                                <div  onClick={()=>NavigateToNotes(3,11)} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#04011E] rounded-md border border-[#524c4c]'>
                                     <img src={fundamentalsIcon} width={150} height={150} />
                                     <img src={fundamentalsOfMathematics} width={200} height={200}/>
 
@@ -177,7 +178,7 @@ const Courses = () => {
 
                                 </div>
 
-                                <div onClick={()=>NavigateToNotesWithoutFundamentals("Physics",11)} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#102e48] rounded-md border border-[#524c4c]'>
+                                <div onClick={()=>NavigateToNotes(4,11)} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#102e48] rounded-md border border-[#524c4c]'>
                                     <img src={PhysicsIcon} width={130} height={130} />  
                                     <h1 className='text-white font-medium'>CORE PHYSICS CONCEPTS</h1>
 
@@ -193,7 +194,7 @@ const Courses = () => {
 
                                 </div>
 
-                                <div onClick={()=>NavigateToNotesWithoutFundamentals("Chemistry",11)} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#1c4234] rounded-md border border-[#524c4c]'>
+                                <div onClick={()=>NavigateToNotes(5,11)} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#1c4234] rounded-md border border-[#524c4c]'>
                                     <img src={ChemistryIcon} width={130} height={130} />  
                                     <h1 className='text-white font-medium'>CORE CHEMISTRY CONCEPTS</h1>
 
@@ -209,7 +210,7 @@ const Courses = () => {
                                 </div>
 
 
-                                <div onClick={()=>NavigateToNotesWithoutFundamentals("Mathematics",11)} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#1d8732] rounded-md border border-[#524c4c]'>
+                                <div onClick={()=>NavigateToNotes(6,11)} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#1d8732] rounded-md border border-[#524c4c]'>
                                     <img src={MathematicsIcon} width={130} height={130} />  
                                     <h1 className='text-white font-medium'>CORE MATHEMATICS CONCEPTS</h1>
 
@@ -230,7 +231,7 @@ const Courses = () => {
                         {twelth ? 
 
                         (
-                        <div onClick={()=>NavigateToNotesWithoutFundamentals("Physics",12)} className='flex flex-row flex-wrap  gap-12'>
+                        <div onClick={()=>NavigateToNotes(7,12)} className='flex flex-row flex-wrap  gap-12'>
                             <div className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#102e48] rounded-md border border-[#524c4c]'>
                                 <img src={PhysicsIcon} width={130} height={130} />  
                                 <h1 className='text-white font-medium'>CORE PHYSICS CONCEPTS</h1>
@@ -247,7 +248,7 @@ const Courses = () => {
 
                             </div>
 
-                            <div onClick={()=>NavigateToNotesWithoutFundamentals("Chemistry",12)} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#1c4234] rounded-md border border-[#524c4c]'>
+                            <div onClick={()=>NavigateToNotes(8,12)} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#1c4234] rounded-md border border-[#524c4c]'>
                                 <img src={ChemistryIcon} width={130} height={130} />  
                                 <h1 className='text-white font-medium'>CORE CHEMISTRY CONCEPTS</h1>
 
@@ -263,7 +264,7 @@ const Courses = () => {
                             </div>
 
 
-                            <div onClick={()=>NavigateToNotesWithoutFundamentals("Mathematics",12)} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#1d8732] rounded-md border border-[#524c4c]'>
+                            <div onClick={()=>NavigateToNotes(9,12)} className='w-72 h-72 cursor-pointer mt-0 gap-5 flex flex-col justify-center items-center  bg-[#1d8732] rounded-md border border-[#524c4c]'>
                                 <img src={MathematicsIcon} width={130} height={130} />  
                                 <h1 className='text-white font-medium'>CORE MATHEMATICS CONCEPTS</h1>
 

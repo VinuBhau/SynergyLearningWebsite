@@ -36,7 +36,7 @@ const Home = () => {
 
   
   
- 
+
   const fullText = [
     { text: 'Everything you need ', color: 'text-white', fontStyle: 'font-normal' },
     { text: 'at one place ', color: 'text-white', fontStyle: 'font-normal' },
@@ -99,7 +99,7 @@ const Home = () => {
           ref={menuRef}
           className="absolute top-16 right-4 bg-gray-800 p-4 rounded-lg shadow-lg flex flex-col gap-4 md:hidden"
         >
-          <Link to="/courses" className="text-white text-lg" onClick={() => setMenuOpen(false)}>Notes</Link>
+          <Link to="/courses" className="text-white text-lg" onClick={() => setMenuOpen(false)}>Courses</Link>
           <LogOut className="cursor-pointer" onClick={() => setMenuOpen(false)} />
         </div>
       )}

@@ -7,71 +7,107 @@ import React, { useEffect, useRef, useState,useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { PulseLoader } from 'react-spinners';
 import toast, { Toaster } from 'react-hot-toast';
-
+// import { useSelector } from 'react-redux';
+import SynergyIcon from '/SynergyLogo-removebg-preview 1.svg';
+import homeIcon from '/icons8-home-48.png';
+import sessionIcon from '/icons8-video-camera-64.png'
+import coursesIcon from '/icons8-online-group-studying-50.png'
 
 
 function Notes() {
-  
+
   const [CSRelatedPdf,setCSRelatedPdf] = useState([])
-  const [Sem1,setSem1] = useState(0)
-  const [Sem2,setSem2] = useState(0)
+
+
+  
+const [showPdfOnMobile, setShowPdfOnMobile] = useState(false); // State to toggle PDF on mobile
+const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   
   
   const [SelectedSubjectNumber,setSelectedSubjectNumber] = useState([])
 
+  const [fadeIn, setFadeIn] = useState(!isMobile); // Disable fadeIn for mobile
+
+  const SubjectNumber = sessionStorage.getItem("SubjectNumber")
+  const Sem = sessionStorage.getItem("Sem")
+
+
 
 
   useEffect(() => {
-    console.log("Fetching data...");
+    console.log("Updated in NotesPage:", SubjectNumber, Sem); // ✅ This will now show the updated values
+}, [SubjectNumber, Sem]);
+
+
+
+
   
+const [isPdfVisible, setIsPdfVisible] = useState(false);
+const [currentPdfLink, setCurrentPdfLink] = useState("");
+
+
+
+  
+  useEffect(() => {
+
+
+
+    console.log("Fetching data..."+SubjectNumber+" "+Sem);
     setCSRelatedPdf([]);
     setSelectedSubjectNumber([]);
   
-    axios.get("http://localhost:5000/api/Notes/GetAllModules")
-      .then(response => {
-        const data = response.data;
+    var myData = { SubjectNumber, Sem };
   
-        setCSRelatedPdf(data);
-        console.log(data);
-  
-        if (data.length > 0) {
-          setSelectedSubjectNumber(data.map(item => ({ SubjectNumber: item.SubjectNumber, State: 0 })));
-  
-          window.scrollTo({
-            top: 300,
-            left: 0,
-            behavior: 'smooth'
-          });
-        } else {
-          setErrVal(true);
-          setTimeout(() => {
-            setErrVal(false);
-          }, 1000);
-  
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-  
-        setTimeout(() => {
-          if (data.length === 0) {
-            setCSRelatedPdf([]);
-            setShowSubjectsClicked(false);
-          }
-        }, 1000);
-      })
-      .catch(error => {
-        console.error("Error fetching data:", error);
-        setErrVal(true);
-        setTimeout(() => setErrVal(false), 1000);
-      });
-  
-  }, []);
-  
+    axios.post("http://localhost:5000/api/notes/getSelectedModules", myData)
+    .then(response => {
+      if (response && response.data) {  
+        const receivedData = response.data;  // ✅ Define 'receivedData' correctly
+        console.log("✅ Raw response data:", receivedData);
 
 
+        setCSRelatedPdf([receivedData]);  // ✅ Set state properly
+        setSelectedSubjectNumber([receivedData])
+        setCurrentPdfLink(receivedData.Modules[0].PdfLink[0])
+        setFadeIn(true);
+      }
+      else
+        console.log("Error fetching data")
+      
+    })
+    .catch(error => {
+      console.error("Error fetching data:", error);
+    });
   
+  },[])
 
 
+
+    const [home,setHome] = useState(true);
+    const [session,setSession] = useState(false);
+    const [courses,setCourses] = useState(false);
+
+
+    const TurnOnHome = () =>{
+
+        setHome(true);
+        setSession(false);
+        setCourses(false)
+    }
+
+    const TurnOnSession = () =>{
+
+        setHome(false);
+        setSession(true);
+        setCourses(false)
+    }
+
+    const TurnOnCourses = () =>{
+
+      setHome(false);
+      setSession(false);
+      setCourses(true)
+    }
 
 
 
@@ -80,22 +116,6 @@ const handleToggle = (subjectNumber) => {
 
 
 
-  // setSelectedSubjectNumber((prev) => {
-  //   // Check if the subject is already in the array
-  //   const existingSubject = prev.find(sub => sub.SubjectNumber === subjectNumber);
-    
-  //   if (existingSubject) {
-  //     // If it exists, toggle its state
-  //     return prev.map(sub =>
-  //       sub.SubjectNumber === subjectNumber
-  //         ? { ...sub, State: existingSubject.State === 0 ? 1 : 0 } // Toggle between 0 and 1
-  //         : sub
-  //     );
-  //   } else {
-  //     // If it doesn't exist, add it with state 1 (expanded)
-  //     return [...prev, { SubjectNumber: subjectNumber, State: 1 }];
-  //   }
-  // });
 
   setSelectedSubjectNumber((prev) => {
     const existingSubject = prev.find(sub => sub.SubjectNumber === subjectNumber);
@@ -116,10 +136,7 @@ const handleToggle = (subjectNumber) => {
 
 
 
-const [fadeIn,setFadeIn] = useState(false)
 
-const [isPdfVisible, setIsPdfVisible] = useState(false);
-const [currentPdfLink, setCurrentPdfLink] = useState("");
 
 // Handle PDF click to open it
 const handlePdfClick = (pdfLink) => {
@@ -132,222 +149,165 @@ const handlePdfClick = (pdfLink) => {
 
 };
 
-// Handle closing the PDF viewer
-const handleClosePdf = () => {
-
-  toast.success("PDF Closed")
-  setIsPdfVisible(false);
-  setCurrentPdfLink("");
-
-  
-};
-
-
-
 useEffect(() => {
   setTimeout(() => {
     setFadeIn(true);
   }, 100); // Small delay to trigger animation after mounting
 }, []);
 
+  // Detect screen size and update states dynamically
+  useEffect(() => {
+    const handleResize = () => {
+      const mobileView = window.innerWidth < 768;
+      setIsMobile(mobileView);
+      setFadeIn(!mobileView); // Disable fade-in on mobile, enable on desktop
+    };
+
+    handleResize(); // Set initial value
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMobile]);
 
   return (
 
-    <div className='bg-black min-h-screen gap-[20px] flex flex-row   '>
 
-    <div className="hidden md:block w-full mt-20  bg-white border-2 border-custom-dark rounded-md shadow-lg p-4 h-[90vh] overflow-auto">
-          {currentPdfLink ? (
-          <iframe
-          src={`${currentPdfLink}#toolbar=0&navpanes=0&scrollbar=0`}
-          className="w-full h-full"
-          style={{ border: "none", overflow: "hidden" }}
-          title="PDF Viewer"
-        ></iframe>
-        
-         
-          ) : (
-            <div className="text-center text-gray-500">Select a PDF to view</div>
-          )}
-        </div>
+  <div className="bg-black min-h-screen w-full flex flex-row md:flex-row ">
+                
     
-    
-    <div className='flex flex-col transition-all    duration-700 ease-in-out animate-fade-in-slide-up '>
-        <div className='text-white text-3xl mt-6 flex justify-center'>
-          <span className='text-center'>Notes</span>
-        </div>
-    
-        
-    
-        {CSRelatedPdf.length ? (
-      <div className={`mt-4 transition-all self-end mr-2 duration-700 ease-in-out animate-fade-in-slide-up ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
-        <div className="flex flex-col gap-4 border-2 bg-[#20C030] border-custom-dark rounded-md shadow-lg p-4 justify-between w-full max-w-xs mx-auto">
-          <div className="flex flex-row justify-between font-semibold">
-            <div className="flex-1 text-white text-center">Contents</div>
-          </div>
-        </div>
-    
-        <div className="flex flex-row gap-2 bg-black border-2 border-custom-dark mt-2 rounded-lg shadow-lg p-4 mx-auto w-full max-w-xs">
-          <div className="flex flex-row justify-between items-center w-full">
-            <div className="text-white text-center flex-1 text-sm">Subject Name</div>
-            <div className="flex flex-col items-center flex-none">
-              <span className="text-white text-xs mt-1">Expand/Reduce</span>
+        <div className='flex min-h-screen w-full flex-row gap-5' >
+
+            <div className="bg-[#0F0C0C] self-start flex flex-col gap-10 border-r border-[#645D5D] w-20 h-full">
+            
+                                <img src={SynergyIcon} width={60} height={60} className='mt-16 bg-black rounded-lg ' />
+                                
+                                <div className='flex flex-col gap-4'>
+                                    <Link to='/' onClick={TurnOnHome} className={`w-19 h-20 hover:bg-gray-700 cursor-pointer hover:bg-opacity-80 flex items-center justify-center ${home ? 'bg-black border-l-2 border-orange-500':'' } `}>
+                                        <div className='flex flex-col justify-center items-center '>
+                                            <img src={homeIcon} width={30}  height={30}  />
+                                            <h1 className='text-white'>Home</h1>
+                                        </div>
+                                    </Link>
+                                    <div  onClick={TurnOnSession} className={`w-19 h-20 hover:bg-gray-700 cursor-pointer hover:bg-opacity-80 flex items-center justify-center ${session ? 'bg-black  border-l-2 border-orange-500 ' : ''} `}>
+                                        <div className='flex flex-col justify-center items-center'>
+                                            <img src={sessionIcon} width={30}  height={30}  />
+                                            <h1 className='text-white'>Sessions</h1>
+                                        </div>
+            
+                                    </div>
+
+                                    <Link to='/courses' onClick={TurnOnCourses} className={`w-19 h-20 hover:bg-gray-700 cursor-pointer hover:bg-opacity-80 flex items-center justify-center ${courses ? 'bg-black  border-l-2 border-orange-500 ' : ''} `}>
+                                        <div className='flex flex-col justify-center items-center'>
+                                            <img src={coursesIcon} width={30}  height={30}  />
+                                            <h1 className='text-white'>Courses</h1>
+                                        </div>
+            
+                                    </Link>
+                                </div>
             </div>
-          </div>
-        </div>
-        
-        {CSRelatedPdf.map((pdf, key) => (
-          <div key={pdf.SubjectNumber}>
-            {pdf.Modules.length ? (
-              <div key={pdf.SubjectNumber} className="transition-all duration-700 ease-in-out transform bg-black">
-                <div className="flex flex-col gap-2 bg-black border-2 border-custom-dark rounded-lg shadow-lg p-4 mx-auto w-full max-w-xs">
-                  <div onClick={() => handleToggle(pdf.SubjectNumber)} className="flex cursor-pointer flex-row justify-between items-center w-full bg-black">
-                    <div className="text-white text-center flex-1 break-words overflow-hidden whitespace-normal max-w-[180px]" style={{ minHeight: '3rem' }}>
-                      {pdf.SubjectName}
-                    </div>
-                    <div className="flex flex-col items-center flex-none">
-                      <i className={`text-2xl text-white cursor-pointer ${SelectedSubjectNumber.some(sub => sub.SubjectNumber === pdf.SubjectNumber && sub.State === 1) ? 'bi bi-arrow-up-circle-fill' : 'bi bi-arrow-down-circle-fill'}`}></i>
+
+            {/* PDF Viewer Section */}
+            <div 
+              className={`w-full min-h-screen md:w-3/4 bg-[#030109] mt-5  border-2 border-custom-dark rounded-md shadow-lg p-4 overflow-auto 
+                ${isMobile && !showPdfOnMobile ? 'hidden' : 'block'}`}
+            >
+              {/* Back to Notes Button on Mobile */}
+              {isMobile && showPdfOnMobile && (
+                <button 
+                  className="md:hidden mb-4 bg-red-500 text-white px-4 py-2 rounded"
+                  onClick={() => setShowPdfOnMobile(false)}
+                >
+                  Back to Notes
+                </button>
+              )}
+
+              {currentPdfLink ? (
+                <iframe
+                  src={`${currentPdfLink}#toolbar=0&navpanes=0&scrollbar=0&download=0&print=0&view=FitH#zoom=150`}
+                  className="w-full h-[80vh] sm:h-[90vh] md:h-screen border-none"
+                  title="PDF Viewer"
+                />
+              ) : (
+                <div className="text-center text-gray-500">Select a PDF to view</div>
+              )}
+            </div>
+
+            {/* Notes Section (Always Visible on Desktop, Toggles on Mobile) */}
+            <div className={`flex flex-col w-full md:w-1/3 transition-all duration-700 ease-in-out ${isMobile && showPdfOnMobile ? 'hidden' : 'block'}`}>
+              <div className="text-white text-3xl text-center">Notes</div>
+
+              {CSRelatedPdf.length > 0 && (
+                <div className={`mt-4 self-center  mr-2 transition-all duration-700 ease-in-out animate-fade-in-slide-up ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
+
+                  {/* Contents Header */}
+                  <div className="flex flex-col gap-4 border-2 bg-[#101553] border-custom-dark rounded-md shadow-lg p-4 max-w-xs mx-auto">
+                    <div className="flex flex-row justify-between font-semibold">
+                      <div className="flex-1 text-white text-center">Contents</div>
                     </div>
                   </div>
-    
-                  {SelectedSubjectNumber.some(sub => sub.SubjectNumber === pdf.SubjectNumber) && (
-                    <div className={`flex flex-col gap-5 mt-2 overflow-auto transition-all duration-700 ease-in-out bg-black ${SelectedSubjectNumber.some(sub => sub.SubjectNumber === pdf.SubjectNumber && sub.State === 1) ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'}`}>
-                      {pdf.Modules.map((module) => (
-                        <div key={module.ModuleNum} className="flex flex-col gap-2 bg-black border-2 border-custom-dark rounded-2xl shadow-lg p-2 w-full mx-auto">
-                          <div className="text-white text-center md:text-left text-sm">{module.ModuleName}</div>
-    
-                          <div className="flex justify-center gap-2">
-                            {module.PdfLink.map((pdfLink, index) => (
-                              <div key={index} className="relative">
-                                (
-                                    <a href="#" onClick={(e) => { e.preventDefault(); handlePdfClick(pdfLink); }} className="text-black cursor-pointer">
-                                      <i className="bi bi-file-earmark-pdf-fill text-white text-2xl"></i>
-                                    </a>
-                                  )
-                              
+
+                  {/* Subject List */}
+                  {CSRelatedPdf.map((pdf) => (
+                    <div key={pdf.SubjectNumber}>
+                      {pdf.Modules.length ? (
+                        <div key={pdf.SubjectNumber} className="transition-all duration-700 ease-in-out transform bg-black">
+                          
+                          {/* Subject Title */}
+                          <div className="flex flex-col gap-2 bg-black border-2 border-custom-dark rounded-lg shadow-lg p-4 mx-auto w-full max-w-xs">
+                            <div 
+                              onClick={() => handleToggle(pdf.SubjectNumber)} 
+                              className="flex cursor-pointer flex-row justify-between items-center w-full bg-black"
+                            >
+                              <div className="text-white text-center flex-1 break-words overflow-hidden whitespace-normal max-w-[180px]" style={{ minHeight: '3rem' }}>
+                                {pdf.SubjectName}
                               </div>
-                            ))}
+                              <div className="flex flex-col items-center flex-none">
+                                <i className={`text-2xl text-white cursor-pointer ${SelectedSubjectNumber.some(sub => sub.SubjectNumber === pdf.SubjectNumber && sub.State === 1) ? 'bi bi-arrow-up-circle-fill' : 'bi bi-arrow-down-circle-fill'}`}></i>
+                              </div>
+                            </div>
+
+                            {/* Modules */}
+                            {SelectedSubjectNumber.some(sub => sub.SubjectNumber === pdf.SubjectNumber) && (
+                              <div className={`flex flex-col gap-5 mt-2 overflow-auto transition-all duration-700 ease-in-out bg-black ${SelectedSubjectNumber.some(sub => sub.SubjectNumber === pdf.SubjectNumber && sub.State === 1) ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                                {pdf.Modules.map((module) => (
+                                  <div key={module.ModuleNum} className="flex flex-col gap-2 bg-black border-2 border-custom-dark rounded-2xl shadow-lg p-2 w-full mx-auto">
+                                    <div className="text-white text-center text-sm">{module.ModuleName}</div>
+
+                                    <div className="flex justify-center gap-2">
+                                      {module.PdfLink.map((pdfLink, index) => (
+                                        <div key={index} className="relative">
+                                          <a 
+                                            href="#" 
+                                            onClick={(e) => { 
+                                              e.preventDefault(); 
+                                              handlePdfClick(pdfLink); 
+                                              if (isMobile) setShowPdfOnMobile(true); // Hide subjects only on mobile
+                                            }} 
+                                            className="text-black cursor-pointer"
+                                          >
+                                            <i className="bi bi-file-earmark-pdf-fill text-white text-2xl"></i>
+                                          </a>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
                           </div>
+
                         </div>
-                      ))}
+                      ) : null}
                     </div>
-                  )}
+                  ))}
                 </div>
-              </div>
-            ) : null}
-          </div>
-        ))}
-      </div>
-    ) : null}
-    
-    </div>
-    
-    
-          <div className='mb-[50px]'></div>
-          <Toaster/>
+              )}
+            </div>
         </div>
+
+      <Toaster />
+    </div>
    
   )
 }
 
 export default Notes
-
-// <div className='bg-black min-h-screen gap-[20px] flex flex-row   '>
-
-// <div className="hidden md:block w-2/5 bg-white border-2 border-custom-dark rounded-md shadow-lg p-4 h-[80vh] overflow-auto">
-//       {currentPdfLink ? (
-//         <iframe
-//           src={currentPdfLink}
-//           className="w-full h-full"
-//           style={{ border: "none", overflow: "auto" }}
-//           title="PDF Viewer"
-//         ></iframe>
-//       ) : (
-//         <div className="text-center text-gray-500">Select a PDF to view</div>
-//       )}
-//     </div>
-
-
-// <div className='flex flex-col transition-all     duration-700 ease-in-out animate-fade-in-slide-up '>
-//     <div className='text-white text-3xl mt-6 flex justify-center'>
-//       <span className='text-center'>Notes</span>
-//     </div>
-
-    
-
-//     {CSRelatedPdf.length ? (
-//   <div className={`mt-4 transition-all self-end mr-2 duration-700 ease-in-out animate-fade-in-slide-up ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
-//     <div className="flex flex-col gap-4 border-2 bg-[#20C030] border-custom-dark rounded-md shadow-lg p-4 justify-between w-full max-w-xs mx-auto">
-//       <div className="flex flex-row justify-between font-semibold">
-//         <div className="flex-1 text-white text-center">Contents</div>
-//       </div>
-//     </div>
-
-//     <div className="flex flex-row gap-2 bg-black border-2 border-custom-dark mt-2 rounded-lg shadow-lg p-4 mx-auto w-full max-w-xs">
-//       <div className="flex flex-row justify-between items-center w-full">
-//         <div className="text-white text-center flex-1 text-sm">Subject Name</div>
-//         <div className="flex flex-col items-center flex-none">
-//           <span className="text-white text-xs mt-1">Expand/Reduce</span>
-//         </div>
-//       </div>
-//     </div>
-    
-//     {CSRelatedPdf.map((pdf, key) => (
-//       <div key={pdf.SubjectNumber}>
-//         {pdf.Modules.length ? (
-//           <div key={pdf.SubjectNumber} className="transition-all duration-700 ease-in-out transform bg-black">
-//             <div className="flex flex-col gap-2 bg-black border-2 border-custom-dark rounded-lg shadow-lg p-4 mx-auto w-full max-w-xs">
-//               <div onClick={() => handleToggle(pdf.SubjectNumber)} className="flex cursor-pointer flex-row justify-between items-center w-full bg-black">
-//                 <div className="text-white text-center flex-1 break-words overflow-hidden whitespace-normal max-w-[180px]" style={{ minHeight: '3rem' }}>
-//                   {pdf.SubjectName}
-//                 </div>
-//                 <div className="flex flex-col items-center flex-none">
-//                   <i className={`text-2xl text-white cursor-pointer ${SelectedSubjectNumber.some(sub => sub.SubjectNumber === pdf.SubjectNumber && sub.State === 1) ? 'bi bi-arrow-up-circle-fill' : 'bi bi-arrow-down-circle-fill'}`}></i>
-//                 </div>
-//               </div>
-
-//               {SelectedSubjectNumber.some(sub => sub.SubjectNumber === pdf.SubjectNumber) && (
-//                 <div className={`flex flex-col gap-5 mt-2 overflow-auto transition-all duration-700 ease-in-out bg-black ${SelectedSubjectNumber.some(sub => sub.SubjectNumber === pdf.SubjectNumber && sub.State === 1) ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'}`}>
-//                   {pdf.Modules.map((module) => (
-//                     <div key={module.ModuleNum} className="flex flex-col gap-2 bg-black border-2 border-custom-dark rounded-2xl shadow-lg p-2 w-full mx-auto">
-//                       <div className="text-white text-center md:text-left text-sm">{module.ModuleName}</div>
-
-//                       <div className="flex justify-center gap-2">
-//                         {module.PdfLink.map((pdfLink, index) => (
-//                           <div key={index} className="relative">
-//                             {pdfLink !== "" ? (
-//                               isPdfVisible && currentPdfLink === pdfLink ? (
-//                                 <div className="fixed inset-0 bg-opacity-80 z-50 flex justify-center items-center">
-//                                   <div className="z-50 w-[90vw] h-[80vh] relative overflow-auto bg-white">
-//                                     <button onClick={handleClosePdf} className="absolute top-2 right-2 text-white bg-red-600 hover:bg-red-700 rounded-full w-8 h-8 flex items-center justify-center">
-//                                       <i className="bi bi-x-lg text-lg"></i>
-//                                     </button>
-//                                     <iframe src={`${pdfLink}`} className="w-full h-full border-none"></iframe>
-//                                   </div>
-//                                 </div>
-//                               ) : (
-//                                 <a href="#" onClick={(e) => { e.preventDefault(); handlePdfClick(pdfLink); }} className="text-black cursor-pointer">
-//                                   <i className="bi bi-file-earmark-pdf-fill text-white text-2xl"></i>
-//                                 </a>
-//                               )
-//                             ) : null}
-//                           </div>
-//                         ))}
-//                       </div>
-//                     </div>
-//                   ))}
-//                 </div>
-//               )}
-//             </div>
-//           </div>
-//         ) : null}
-//       </div>
-//     ))}
-//   </div>
-// ) : null}
-
-// </div>
-
-
-//       <div className='mb-[50px]'></div>
-//       <Toaster/>
-//     </div>
