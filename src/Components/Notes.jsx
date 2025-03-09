@@ -37,7 +37,7 @@ const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
 
   useEffect(() => {
-    console.log("Updated in NotesPage:", SubjectNumber, Sem); // ✅ This will now show the updated values
+    console.log("Updated in NotesPage:", SubjectNumber, Sem); //  This will now show the updated values
 }, [SubjectNumber, Sem]);
 
 
@@ -63,11 +63,11 @@ const [currentPdfLink, setCurrentPdfLink] = useState("");
     axios.post("http://localhost:5000/api/notes/getSelectedModules", myData)
     .then(response => {
       if (response && response.data) {  
-        const receivedData = response.data;  // ✅ Define 'receivedData' correctly
-        console.log("✅ Raw response data:", receivedData);
+        const receivedData = response.data;  //  Define 'receivedData' correctly
+        console.log(" Raw response data:", receivedData);
 
 
-        setCSRelatedPdf([receivedData]);  // ✅ Set state properly
+        setCSRelatedPdf([receivedData]);  //  Set state properly
         setSelectedSubjectNumber([receivedData])
         setCurrentPdfLink(receivedData.Modules[0].PdfLink[0])
         setFadeIn(true);
@@ -153,15 +153,15 @@ const handlePdfClick = (pdfLink) => {
 useEffect(() => {
   setTimeout(() => {
     setFadeIn(true);
-  }, 100); // Small delay to trigger animation after mounting
+  }, 100); 
 }, []);
 
-  // Detect screen size and update states dynamically
+
   useEffect(() => {
     const handleResize = () => {
       const mobileView = window.innerWidth < 768;
       setIsMobile(mobileView);
-      setFadeIn(!mobileView); // Disable fade-in on mobile, enable on desktop
+      setFadeIn(!mobileView); 
     };
 
     handleResize(); // Set initial value
