@@ -11,7 +11,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import SynergyIcon from '/SynergyLogo-removebg-preview 1.svg';
 import homeIcon from '/icons8-home-48.png';
 import sessionIcon from '/icons8-video-camera-64.png'
-import coursesIcon from '/icons8-online-group-studying-50.png'
+import coursesIcon from '/courses/icons8-online-group-studying-50.png'
+import PdfViewer from './PdfViewer';
 
 
 function Notes() {
@@ -221,11 +222,14 @@ useEffect(() => {
               )}
 
               {currentPdfLink ? (
-                <iframe
-                  src={`${currentPdfLink}#toolbar=0&navpanes=0&scrollbar=0&download=0&print=0&view=FitH#zoom=150`}
-                  className="w-full h-[80vh] sm:h-[90vh] md:h-screen border-none"
-                  title="PDF Viewer"
-                />
+                // <div onClick={()=>window.location.reload()} className="relative w-full h-[80vh] sm:h-[90vh] md:h-screen">
+                // <iframe
+                //   src={`${currentPdfLink}#toolbar=0&view=FitH#zoom=150`}
+                //   className="w-full h-full border-none pointer-events-auto"
+                //   title="PDF Viewer"
+                //   loading="lazy"
+                // /></div>
+                <PdfViewer pdfUrl={currentPdfLink}/>
               ) : (
                 <div className="text-center text-gray-500">Select a PDF to view</div>
               )}
