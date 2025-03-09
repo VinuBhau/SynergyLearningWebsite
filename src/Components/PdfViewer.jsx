@@ -20,19 +20,19 @@ export default function PdfViewer({ pdfUrl }) {
     if(windowWidth<=490)
         scaleVal = 0.45
         
-    if (!pdfUrl) return; // ✅ Ensure pdfUrl exists before loading
+    if (!pdfUrl) return; //  Ensure pdfUrl exists before loading
 
 
-    GlobalWorkerOptions.workerSrc = pdfWorker; // ✅ Correctly set worker path
+    GlobalWorkerOptions.workerSrc = pdfWorker; //  Correctly set worker path
 
     getDocument(pdfUrl)
       .promise.then((pdf) => {
-        setNumPages(pdf.numPages); // ✅ Set total pages count
+        setNumPages(pdf.numPages); //  Set total pages count
 
-        // ✅ Load each page
+        //  Load each page
         for (let i = 1; i <= pdf.numPages; i++) {
           pdf.getPage(i).then((page) => {
-            if (!canvasRefs.current[i - 1]) return; // ✅ Ensure ref exists
+            if (!canvasRefs.current[i - 1]) return; //  Ensure ref exists
 
             const canvas = canvasRefs.current[i - 1];
             const context = canvas.getContext("2d");
