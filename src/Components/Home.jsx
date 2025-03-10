@@ -92,12 +92,12 @@ const Home = () => {
         </button>
       </div>
 
-     
+
       {/* Mobile Dropdown Menu (Click Outside Close) */}
       {menuOpen && (
         <div
           ref={menuRef}
-          className="absolute top-16 right-4 bg-gray-800 p-4 rounded-lg shadow-lg flex flex-col gap-4 md:hidden"
+          className="absolute top-0 bg-black self-center w-full mt-5  p-4 rounded-lg shadow-lg flex flex-col gap-4 md:hidden"
         >
           <Link to="/courses" className="text-white text-lg" onClick={() => setMenuOpen(false)}>Courses</Link>
           <LogOut className="cursor-pointer" onClick={() => setMenuOpen(false)} />

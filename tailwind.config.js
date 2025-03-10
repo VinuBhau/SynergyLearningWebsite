@@ -23,6 +23,10 @@ export default {
           '100%': { transform: 'translateY(0)' },
         },
       },
+
+      
+
+      
       animation: {
         slideDown: 'slideDown 0.7s ease-in-out',
       },

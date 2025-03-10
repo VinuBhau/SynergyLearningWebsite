@@ -13,7 +13,7 @@ import homeIcon from '/icons8-home-48.png';
 import sessionIcon from '/icons8-video-camera-64.png'
 import coursesIcon from '/courses/icons8-online-group-studying-50.png'
 import PdfViewer from './PdfViewer';
-
+import { motion } from 'framer-motion';
 
 function Notes() {
 
@@ -170,14 +170,21 @@ useEffect(() => {
   }, [isMobile]);
 
   return (
+    
+<div className="w-screen h-screen bg-[#090707] ">
+  <motion.div
+      initial={{ x: -408, opacity: 0.9 }} // Start slightly off-screen left
+      animate={fadeIn ? { x: 0, opacity: 1 } : { x: -408, opacity: 0.9 }} // Animate based on fadeIn state
+      transition={{ duration: .5, ease: "easeInOut" }} // Smooth transition
+      className="bg-black min-h-screen w-full flex flex-row md:flex-row   border-r border-[#645D5D] "
+    >
 
-
-  <div className="bg-black min-h-screen w-full flex flex-row md:flex-row ">
+  
                 
     
         <div className='flex min-h-screen w-full flex-row gap-5' >
 
-            <div className="bg-[#0F0C0C] self-start flex flex-col gap-10 border-r border-[#645D5D] w-20 h-full">
+            <div className="bg-[#0F0C0C] self-start  flex flex-col gap-10 border-r border-[#645D5D] w-20 h-full">
             
                                 <img src={SynergyIcon} width={60} height={60} className='mt-16 bg-black rounded-lg ' />
                                 
@@ -309,8 +316,8 @@ useEffect(() => {
         </div>
 
       <Toaster />
-    </div>
-   
+      </motion.div>
+   </div>
   )
 }
 

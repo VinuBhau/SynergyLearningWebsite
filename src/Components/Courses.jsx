@@ -12,10 +12,16 @@ import ChemistryIcon from '/courses/ChemistryIcon.png'
 import PhysicsIcon from '/courses/physicsIcon.png'
 import MathematicsIcon from '/courses/MathematicsIcon.png'
 import { Link, useNavigate } from 'react-router-dom';
-
+import { motion } from 'framer-motion';
 
 
 const Courses = () => {
+
+
+    const [fadeIn,setFadeIn] = useState(false);
+    useEffect(() => {
+        setFadeIn(true);
+    },[])
 
     const navigate = useNavigate();
     // const dispatch = useDispatch(); // Initialize Redux dispatch
@@ -77,11 +83,16 @@ const Courses = () => {
 
 
   return (
-    
-    <div className="bg-[#090707] w-screen min-h-screen lg:min-h-screen flex flex-col  overflow-hidden ">
-        
-        <div className='flex flex-row '>
-                <div className="bg-[#0F0C0C] flex flex-col gap-10 border-r border-[#645D5D] w-20 min-h-screen">
+
+<div className="w-screen h-screen bg-[#090707] ">
+    <motion.div
+    initial={{ x: -408, opacity: 0.9 }} // Start slightly off-screen left
+    animate={fadeIn ? { x: 0, opacity: 1 } : { x: -408, opacity: 0.9 }} // Animate based on fadeIn state
+    transition={{ duration: .5, ease: "easeInOut" }} // Smooth transition
+    className="bg-[#090707] w-screen min-h-screen lg:min-h-screen flex flex-col "
+  >
+        <div className='flex flex-row  '>
+                <div className="bg-[#0F0C0C] fixed flex flex-col gap-10 border-r border-[#645D5D] w-20 min-h-screen">
 
                     <img src={SynergyIcon} width={60} height={60} className='mt-16 bg-black rounded-lg ml-1' />
                     
@@ -103,7 +114,7 @@ const Courses = () => {
                 </div> 
 
 
-                <div className='flex flex-col w-screen  gap-20'>
+                <div className='flex flex-col w-screen ml-20  gap-20 border-r border-[#645D5D] '>
                     <div className='flex flex-row gap-5 justify-center items-center'>
                         <h1 className='text-white  font-semibold text-2xl mt-5'>Explore Courses</h1>
                         <img src={coursesIcon} width={50} height={50} className='mt-5' />
@@ -289,9 +300,14 @@ const Courses = () => {
                 <div className='mt-10 h-20'>
 
                 </div>
+
+                
+
+                
         </div>
 
-    </div>
+    </motion.div>
+</div>
   )
 }
 
