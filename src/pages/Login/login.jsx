@@ -3,10 +3,10 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { PulseLoader } from "react-spinners";
+import { useAuthContext } from "../../context/AuthContext";
 import SynergyIcon from '/SynergyLogo-removebg-preview 1.svg';
 import gmailIcon from '/gmail-removebg-preview 1.svg';
 import keyIcon from '/keyicon.svg';
-import { useAuthContext } from "../../context/AuthContext";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -22,7 +22,7 @@ const Login = () => {
     e.preventDefault();
     try {
 
-			console.log(username+" "+password)
+			
 
 			const res = await fetch("http://localhost:5000/api/auth/login", {
 				method: "POST",
@@ -31,28 +31,37 @@ const Login = () => {
 				body: JSON.stringify({ username, password }),
 			});
 
-			console.log(res.data)
-
-			const data = await res.json();
-			if (data.error) {
-				throw new Error(data.error);
-			}
-
-      setTimeout(()=>{
-        setLoadingVal(0)
-      },500)
 
 			
-			toast.success('Logged In Successfully!')
-      navigate("/");
 
-			localStorage.setItem("chat-user", JSON.stringify(data));
-			setAuthUser(data);
+      if (res.status === 200) {
 
+        setTimeout(()=>{
+          setLoadingVal(0)
+        },500)
+        
+        const data = await res.json();
+        
+        // Store the token in the context and in cookies
+        setAuthUser(data.token); // Store the token in the context
+  
+        // Optionally, store it in cookies for persistence across sessions
+        document.cookie = `jwt=${data.token}; path=/; max-age=3600; Secure; HttpOnly; SameSite=Strict`;
+  
+        toast.success('Logged In Successfully!');
+        navigate("/"); // Navigate to the home page after login
+      }
+
+      if(res.status === 400){
+        setLoadingVal(0)
+        toast.error("Invalid username or password");
+      } 
+			
+    
 		} catch (error) {
 			toast.error(error.message);
       setLoadingVal(0)
-		} 
+		}
     
   };
 

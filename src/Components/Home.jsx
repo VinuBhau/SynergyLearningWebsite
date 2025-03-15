@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import LogOut from '../pages/LogOut/Logout'
-import SynergyIcon from '/SynergyLogo-removebg-preview 1.svg';
+import SynergyIcon from '/LogoSynergy.jpeg';
 import { Link } from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.min.css';
 import ComparisonTable from './ComparisonTable';
@@ -77,7 +77,7 @@ const Home = () => {
     <div className="bg-[#090707] w-screen min-h-screen lg:min-h-screen flex flex-col items-center overflow-hidden px-4">
     
     <div className="w-full flex flex-row justify-between items-center mt-4">
-      <img src={SynergyIcon} width={150} height={150} className="ml-0" />
+      <img src={SynergyIcon}  className="ml-0 rounded-full lg:ml-2 lg:mt-2 w-20 h-20 lg:w-24 lg:h-24" />
 
        {/* Desktop Navigation */}
        <div className="hidden md:flex flex-row gap-10 justify-center items-center mr-5">
@@ -120,13 +120,13 @@ const Home = () => {
       <ComparisonTable/>
     </div>
     
-      
+
 
 
     <footer className="bg-[#0f0c0c] mt-20 w-screen  justify-start items-start transition-all duration-700 ease-in-out animate-fade-in-slide-up h-auto lg:h-[480px] flex flex-col lg:flex-row gap-5 lg:gap-[50px] p-5  overflow-hidden">
-      <div className="flex flex-col  mt-0 w-screen items-center justify-center lg:w-[300px]">
-        <img src={SynergyIcon} alt="Logo" width={117} height={117} className="self-center " />
-        <div className=" text-sm md:text-md  sm:w-32 font-instrument text-center font-semibold text-[#9A9494] ">
+      <div className="flex flex-col gap-3 mt-0 w-screen items-center justify-center lg:w-[300px]">
+        <img src={SynergyIcon} alt="Logo" width={70} height={70} className="self-center rounded-full mt-2 " />
+        <div className=" text-sm md:text-md mr-6 lg:mr-0  sm:w-32 font-instrument text-center font-semibold text-[#9A9494] ">
           Best Place to Master Physics Chemistry and Mathematics.
         </div>
 

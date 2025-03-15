@@ -11,6 +11,7 @@ import VerifyOTP from './pages/verifyOtp/verifyGmailOtp'
 import Courses from './Components/Courses'
 import Notes from './Components/Notes'
 import { useState } from 'react'
+import Sessions from './Components/Sessions'
 
 
 function App() {
@@ -34,6 +35,10 @@ function App() {
         <Route path='/forgot-password' element = { <ForgotPassword/>} />
         <Route path='/courses' element = { authUser == null? <Login/> : <Courses  />} />
         <Route path='/notes' element = { authUser == null? <Login/> : <Notes   />} />
+        <Route path='/sessions' element = { authUser == null? <Login/> : <Sessions   />} />
+
+        
+
 
 
       </Routes>

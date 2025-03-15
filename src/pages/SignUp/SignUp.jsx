@@ -87,6 +87,7 @@ const SignUp = () => {
 
 			const res = await fetch("http://localhost:5000/api/auth/signup", {
 				method: "POST",
+        credentials:"include",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ fullName, username, password, confirmPassword, gender }),
 			});
@@ -96,20 +97,15 @@ const SignUp = () => {
 				throw new Error(data.error);
 			}
 
-
-			localStorage.setItem("chat-user", JSON.stringify(data));
-			console.log(localStorage.getItem("chat-user"));
-			setAuthUser(data);
-
+      setAuthUser(data.token);
+      navigate("/");
 			toast.success('Signed Up Successfully !')
 		} catch (error) {
 
 			toast.error(error.message);
 		} 
 
-    if(localStorage.getItem("chat-user") != null){
-        navigate("/");
-    }
+    
 
   };
 
