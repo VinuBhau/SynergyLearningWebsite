@@ -98,7 +98,7 @@ const Sessions = () => {
 
             <div className="bg-[#0F0C0C] self-start fixed  flex flex-col gap-14 border-r border-[#645D5D] w-[60px]  min-h-screen">
 
-                                <img src={SynergyIcon}  className='mt-16 bg-black  w-[58px] h-[54px]  rounded-full ' />
+                                <Link to='/'><img src={SynergyIcon}  className='mt-16 bg-black  w-[58px] h-[54px]  rounded-full ' /></Link>
 
                                 <div className='flex flex-col gap-10'>
                                     <Link to='/' onClick={TurnOnHome} className={` w-[58px] h-14  hover:bg-gray-700 cursor-pointer hover:bg-opacity-80 flex items-center justify-center ${home ? 'bg-black border-l-2 border-orange-500':'' } `}>
@@ -145,7 +145,7 @@ const Sessions = () => {
 
                                 </div>
 
-                                <div className='justify-center lg:ml-20  ml-20 flex flex-col  lg:flex-row  gap-10 items-start  '>
+                                <div className='justify-center lg:ml-20  ml-20 flex flex-col  lg:flex-row  gap-8 items-start  '>
                                 
                                         <div className=' flex flex-col gap-5  cursor-pointer lg:w-[1000px] lg:h-[600px] w-[300px] h-[500px] '>
                                                 <iframe

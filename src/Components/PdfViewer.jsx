@@ -16,7 +16,7 @@ export default function PdfViewer({ pdfUrl }) {
     const windowWidth = window.innerWidth;
     var scaleVal = 1.4;
     if (windowWidth >= 490 && windowWidth <= 768) scaleVal = 0.8;
-    else if (windowWidth <= 490) scaleVal = 0.45;
+    else if (windowWidth <= 490) scaleVal = 0.5;
 
     let renderTasks = []; // ✅ Store active render tasks to cancel if needed
 

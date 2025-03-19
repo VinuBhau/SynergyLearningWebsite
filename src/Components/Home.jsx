@@ -81,12 +81,13 @@ const Home = () => {
 
        {/* Desktop Navigation */}
        <div className="hidden md:flex flex-row gap-10 justify-center items-center mr-5">
-        <Link to="/courses" className="text-white font-medium text-2xl">Courses</Link>
+        <Link to="/courses" className="text-white text-xl font-semibold ">Courses</Link>
+        <Link to="/sessions" className="text-white text-xl font-semibold" onClick={() => setMenuOpen(false)}>Sessions</Link>
         <LogOut className="cursor-pointer" />
       </div>
 
       {/* Mobile Menu Button */}
-      <div className="md:hidden flex items-center">
+      <div  className="md:hidden z-50 flex items-center">
         <button onClick={() => setMenuOpen(!menuOpen)} className="text-white">
           {menuOpen ? <X size={32} /> : <Menu size={32} />}
         </button>
@@ -97,10 +98,15 @@ const Home = () => {
       {menuOpen && (
         <div
           ref={menuRef}
-          className="absolute top-0 bg-black self-center w-full mt-5  p-4 rounded-lg shadow-lg flex flex-col gap-4 md:hidden"
+          className="absolute z-10 top-0 left-0 bg-black   border-2 border-[#0f0c0c] w-full  mt-5  p-4 rounded-2xl shadow-lg flex flex-col gap-6 md:hidden"
         >
-          <Link to="/courses" className="text-white text-lg" onClick={() => setMenuOpen(false)}>Courses</Link>
-          <LogOut className="cursor-pointer" onClick={() => setMenuOpen(false)} />
+          <Link to="/courses" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>Courses</Link>
+          <Link to="/sessions" className="text-white text-lg font-semibold" onClick={() => setMenuOpen(false)}>Sessions</Link>
+
+          <div className='flex flex-row gap-2'>
+            <h1 className='text-red-700 font-semibold text-lg'>LogOut</h1>
+            <LogOut className="cursor-pointer " onClick={() => setMenuOpen(false)} />
+          </div>
         </div>
       )}
 
@@ -123,7 +129,7 @@ const Home = () => {
 
 
 
-    <footer className="bg-[#0f0c0c] mt-20 w-screen  justify-start items-start transition-all duration-700 ease-in-out animate-fade-in-slide-up h-auto lg:h-[480px] flex flex-col lg:flex-row gap-5 lg:gap-[50px] p-5  overflow-hidden">
+    <footer className="bg-[#060202] mt-20 w-screen  justify-start items-start transition-all duration-700 ease-in-out animate-fade-in-slide-up h-auto lg:h-[480px] flex flex-col lg:flex-row gap-5 lg:gap-[50px] p-5  overflow-hidden">
       <div className="flex flex-col gap-3 mt-0 w-screen items-center justify-center lg:w-[300px]">
         <img src={SynergyIcon} alt="Logo" width={70} height={70} className="self-center rounded-full mt-2 " />
         <div className=" text-sm md:text-md mr-6 lg:mr-0  sm:w-32 font-instrument text-center font-semibold text-[#9A9494] ">
@@ -174,9 +180,9 @@ const Home = () => {
 
 
 
-          <div className="flex flex-row items-center gap-2 mt-6">
+          <div className="flex flex-row items-center gap-2  lg:mt-8">
             <i className="bi bi-c-circle text-white text-base md:text-lg"></i>
-            <h1 className="text-white text-sm md:text-lg leading-none">
+            <h1 className="text-white  text-sm md:text-lg leading-none">
               2025 by <span className="text-[#0B02FF] font-semibold">Synergy Learning</span>
             </h1>
           </div>

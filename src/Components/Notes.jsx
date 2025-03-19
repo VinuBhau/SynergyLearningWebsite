@@ -196,11 +196,11 @@ useEffect(() => {
     >
 
 
-        <div className='flex min-h-screen w-full flex-row gap-5' >
+        <div className='flex z-10  min-h-screen w-full flex-row gap-5' >
 
             <div className="bg-[#0F0C0C] self-start fixed  flex flex-col gap-14 border-r border-[#645D5D] w-[60px]  min-h-screen">
             
-                                            <img src={SynergyIcon}  className='mt-16 bg-black w-[58px] h-[54px]  rounded-full ' />
+                                            <Link to='/'><img src={SynergyIcon}  className='mt-16 bg-black w-[58px] h-[54px]  rounded-full ' /></Link>
             
                                             <div className='flex flex-col gap-10'>
                                                 <Link to='/' onClick={TurnOnHome} className={` w-[58px] h-14  hover:bg-gray-700 cursor-pointer hover:bg-opacity-80 flex items-center justify-center ${home ? 'bg-black border-l-2 border-orange-500':'' } `}>
@@ -249,7 +249,7 @@ useEffect(() => {
 
             {/* PDF Viewer Section */}
             <div 
-              className={`w-full min-h-screen ml-20 md:w-3/4 bg-[#030109] mt-5  border-2 border-custom-dark rounded-md shadow-lg p-4 overflow-auto 
+              className={`w-full z-50 lg:ml-24  min-h-screen md:w-3/4 bg-[#000000] mt-5  border-2 border-custom-dark rounded-md shadow-lg p-4 overflow-auto 
                 ${isMobile && !showPdfOnMobile ? 'hidden' : 'block'}`}
             >
               {/* Back to Notes Button on Mobile */}
@@ -284,7 +284,7 @@ useEffect(() => {
                 <div className={`mt-4 self-center  mr-2 transition-all duration-700 ease-in-out animate-fade-in-slide-up ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
 
                   {/* Contents Header */}
-                  <div className="flex flex-col gap-4 border-2 bg-[#101553] border-custom-dark rounded-md shadow-lg p-4 max-w-xs mx-auto">
+                  <div className="flex flex-col gap-4 border-2 bg-[#40a920] border-custom-dark rounded-md shadow-lg p-4 max-w-xs mx-auto">
                     <div className="flex flex-row justify-between font-semibold">
                       <div className="flex-1 text-white text-center">Contents</div>
                     </div>

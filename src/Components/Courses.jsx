@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import SynergyIcon from '/LogoSynergy.jpeg';
-import homeIcon from '/icons8-home-48.png';
-import sessionIcon from '/icons8-video-camera-64.png'
-import coursesIcon from '/courses.png'
-import fundamentalsIcon from '/courses/SBSPHY.svg'
-import fundamentalsOfPhysics from '/courses/FUNDAMENTALS OF PHYSICS.svg'
-import SheetIcon from '/courses/icons8-sheet-50 1.svg'
-import fundamentalsOfChemistry from '/courses/FUNDAMENTALS OF CHEMISTRY.svg'
-import fundamentalsOfMathematics from '/courses/FUNDAMENTALS OF MATHEMATICS.svg'
-import ChemistryIcon from '/courses/ChemistryIcon.png'
-import PhysicsIcon from '/courses/physicsIcon.png'
-import MathematicsIcon from '/courses/MathematicsIcon.png'
-import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import SynergyIcon from '/LogoSynergy.jpeg';
+import coursesIcon from '/courses.png';
+import ChemistryIcon from '/courses/ChemistryIcon.png';
+import fundamentalsOfChemistry from '/courses/FUNDAMENTALS OF CHEMISTRY.svg';
+import fundamentalsOfMathematics from '/courses/FUNDAMENTALS OF MATHEMATICS.svg';
+import fundamentalsOfPhysics from '/courses/FUNDAMENTALS OF PHYSICS.svg';
+import MathematicsIcon from '/courses/MathematicsIcon.png';
+import fundamentalsIcon from '/courses/SBSPHY.svg';
+import SheetIcon from '/courses/icons8-sheet-50 1.svg';
+import PhysicsIcon from '/courses/physicsIcon.png';
 
 
 const Courses = () => {
@@ -109,13 +107,13 @@ const Courses = () => {
     transition={{ duration: .5, ease: "easeInOut" }} // Smooth transition
     className="bg-[#090707] w-screen min-h-screen lg:min-h-screen flex flex-col "
   >
-        <div className='flex flex-row w-full h-full '>
-                <div className="bg-[#0F0C0C] self-start fixed  flex flex-col gap-14 border-r border-[#645D5D] w-[60px]  h-full">
+        <div className='flex flex-row w-full h-full  '>
+                <div className="bg-[#0F0C0C]  self-start  fixed flex flex-col gap-14 border-r border-[#645D5D] w-[60px]  lg:w-[70px]  h-full">
                 
-                                                <img src={SynergyIcon}  className='mt-16 bg-black w-[58px] h-[54px]  rounded-full ' />
+                                                <Link to='/'><img src={SynergyIcon}  className='mt-16 bg-black lg:w-[68px] lg:h-[64px] w-[58px] h-[54px] cursor-pointer rounded-full  lg:rounded-full ' /></Link>
                 
                                                 <div className='flex flex-col gap-10'>
-                                                    <Link to='/' onClick={TurnOnHome} className={` w-[58px] h-14  hover:bg-gray-700 cursor-pointer hover:bg-opacity-80 flex items-center justify-center ${home ? 'bg-black border-l-2 border-orange-500':'' } `}>
+                                                    <Link to='/' onClick={TurnOnHome} className={` lg:w-[68px] w-[58px] h-14  hover:bg-gray-700 cursor-pointer hover:bg-opacity-80 flex items-center justify-center ${home ? 'bg-black border-l-2 border-orange-500':'' } `}>
                                                         <div className='flex flex-col justify-center items-center '>
                                                         <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" className="bi bi-house-door mt-1 lg:w-7 lg:h-7 w-5 h-5 text-white" viewBox="0 0 16 16">
                                                             <path fillRule='evenodd' d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
@@ -124,7 +122,7 @@ const Courses = () => {
                                                         </div>
                                                     </Link>
                 
-                                                    <Link to='/sessions'  onClick={TurnOnSession} className={` w-[58px] h-[54px]    hover:bg-gray-700 cursor-pointer hover:bg-opacity-80 flex items-center justify-center ${session ? 'bg-black  border-l-2 border-orange-500 ' : ''} `}>
+                                                    <Link to='/sessions'  onClick={TurnOnSession} className={` lg:w-[68px] w-[58px] h-[54px]    hover:bg-gray-700 cursor-pointer hover:bg-opacity-80 flex items-center justify-center ${session ? 'bg-black  border-l-2 border-orange-500 ' : ''} `}>
                                                         <div className='flex flex-col self-start justify-center items-center'>
                                                         <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" className="bi bi-camera-video mt-1 lg:w-7 lg:h-7 w-5 h-5 text-white" viewBox="0 0 16 16">
                                                             <path fillRule="evenodd" d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2zm11.5 5.175 3.5 1.556V4.269l-3.5 1.556zM2 4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1z"/>
@@ -134,7 +132,7 @@ const Courses = () => {
                             
                                                     </Link>
                 
-                                                    <Link to='/courses' onClick={TurnOnCourses} className={` w-[58px] h-[54px]    hover:bg-gray-700 cursor-pointer hover:bg-opacity-80 flex items-center justify-center ${courses ? 'bg-black  border-l-2 border-orange-500 ' : ''} `}>
+                                                    <Link to='/courses' onClick={TurnOnCourses} className={` lg:w-[68px] w-[58px]   h-[54px]    hover:bg-gray-700 cursor-pointer hover:bg-opacity-80 flex items-center justify-center ${courses ? 'bg-black  border-l-2 border-orange-500 ' : ''} `}>
                                                         <div className='flex flex-col justify-center items-center'>
                                                         <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" className="bi bi-mortarboard lg:w-7 lg:h-7 mt-1 w-5 h-5 text-white" viewBox="0 0 16 16">
                                                             <path fillRule='evenodd' d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917zM8 8.46 1.758 5.965 8 3.052l6.242 2.913z"/>
@@ -147,17 +145,17 @@ const Courses = () => {
                 
                                                 
                                                 </div>
-                            </div>
+                </div>
 
 
-                <div className='flex flex-col w-screen ml-10  gap-20 border-r border-[#645D5D] '>
+                <div className='flex flex-col w-screen ml-10   gap-20 border-r border-[#645D5D] '>
                     <div className='flex flex-row gap-5 justify-center items-center'>
                         <h1 className='text-white  font-semibold text-2xl mt-5'>Explore Courses</h1>
                         <img src={coursesIcon} width={50} height={50} className='mt-5' />
                     </div>
 
                     <div className=' flex flex-row gap-3  border-b-2 w-auto border-[#302121] '>
-                        <h1 className='text-white ml-10 text-lg font-medium'>Courses</h1>
+                        <h1 className='text-white ml-16 lg:ml-20 text-lg font-medium'>Courses</h1>
 
                         
                                 <div className='flex flex-row gap-2'>
@@ -175,9 +173,8 @@ const Courses = () => {
 
 
                     
-                    
                         <div className='flex flex-row gap-20 ml-10  lg:ml-20  flex-wrap'>
-                            {eleventh ? 
+                            {eleventh ?
                     
                             (<div  className='flex flex-row flex-wrap gap-12'>
                                 <div onClick={()=>NavigateToNotes(1,11)} className='w-72 h-72 cursor-pointer  gap-5 flex flex-col justify-center items-center  bg-[#1D5455] rounded-lg border border-[#524c4c]'>
@@ -271,6 +268,8 @@ const Courses = () => {
                                     </div>
 
                                 </div>
+
+                                <div className='mt-10'></div>
                         </div>
                         ):null}
                         
@@ -324,7 +323,11 @@ const Courses = () => {
                                     </div>
                                 </div>
 
+                                
+
                             </div>
+
+                            <div className='mt-10'></div>
                             </div>
                         ):null}
 
@@ -341,6 +344,8 @@ const Courses = () => {
 
                 
         </div>
+
+        <div className='mt-10 h-20'></div>
 
     </motion.div>
 </div>
