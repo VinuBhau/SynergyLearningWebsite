@@ -130,12 +130,14 @@ const SignUp = () => {
                     Verify Gmail
                   </h2>
                     <div className="flex flex-col gap-5">
-                              <label className="text-sm font-medium text-gray-300 mb-1">Email</label>
+                              
                               
                               <div className="flex  items-center w-80 border border-gray-600 rounded-3xl bg-[#0F0C0C] focus-within:ring-2 focus-within:ring-green-500">
                                 {/* Left Icon Div */}
                                 <div className="bg-[#030109] px-4 py-3 rounded-l-3xl border-r border-gray-600 flex items-center">
-                                  <img src= {gmailIcon} className="w-7 h-7" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                                  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
+                                </svg>
                                 </div>
 
                                 {/* Input Field */}
@@ -160,7 +162,7 @@ const SignUp = () => {
 
                 <Link
                   to="/login"
-                  className="text-[#0A1CB1] font-semibold"
+                  className="text-[#0A1CB1] text-base font-bold"
                 >
                   Back to Login
                 </Link>
@@ -181,7 +183,10 @@ const SignUp = () => {
                               <div className="flex  items-center w-80 border border-gray-600 rounded-3xl bg-[#0F0C0C] focus-within:ring-2 focus-within:ring-green-500">
                                 {/* Left Icon Div */}
                                 <div className="bg-[#0F0C0C] px-4 py-3 rounded-l-3xl border-r border-gray-600 flex items-center">
-                                  <img src= {keyIcon} className="w-7 h-7" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16">
+                                  <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8m4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5"/>
+                                  <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                                </svg>
                                 </div>
 
                                 {/* Input Field */}
@@ -220,10 +225,12 @@ const SignUp = () => {
                 <img src={SynergyIcon} height={117} width={117}/>
 
 
-                <div className="flex flex-col gap-5 ">
+                <div className="flex flex-col gap-10 ">
+
+                  <h1 className="text-lg text-white text-center font-semibold">Sign Up</h1>
 
                   <div className="flex flex-col gap-3">
-                            <label className="text-sm font-medium text-gray-300 mb-1">FullName</label>
+
                             
                             <div className="flex  items-center w-80 border border-gray-600 rounded-3xl bg-[#0F0C0C] focus-within:ring-2 focus-within:ring-green-500">
                               {/* Left Icon Div */}
@@ -234,7 +241,7 @@ const SignUp = () => {
                               {/* Input Field */}
                               <input
                                 type="text"
-                                placeholder="Enter your fullName"
+                                placeholder="Enter your Username"
                                 className="flex-1 p-3 bg-[#030109] text-white outline-none  rounded-r-3xl"
                                 value={inputs.fullName}
                                 onChange={(e) => setInputs({ ...inputs, fullName: e.target.value })}
@@ -243,12 +250,14 @@ const SignUp = () => {
                   </div>
 
                   <div className="flex flex-col gap-3">
-                            <label className="text-sm font-medium text-gray-300 mb-1">Email</label>
+
                             
                             <div className="flex  items-center w-80 border border-gray-600 rounded-3xl bg-[#0F0C0C] focus-within:ring-2 focus-within:ring-green-500">
                               {/* Left Icon Div */}
                               <div className="bg-[#030109] px-4 py-3 rounded-l-3xl border-r border-gray-600 flex items-center">
-                                <img src= {gmailIcon} className="w-7 h-7" />
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
+                              </svg>
                               </div>
                 
                               {/* Input Field */}
@@ -264,12 +273,15 @@ const SignUp = () => {
                 
 
                   <div className="flex flex-col gap-3">
-                            <label className="text-sm font-medium text-gray-300 mb-1">Password</label>
+                            
                             
                             <div className="flex  items-center w-80 border border-gray-600 rounded-3xl bg-[#0F0C0C] focus-within:ring-2 focus-within:ring-green-500">
                               {/* Left Icon Div */}
                               <div className="bg-[#030109] px-4 py-3 rounded-l-3xl border-r border-gray-600 flex items-center">
-                                <img src= {keyIcon} className="w-7 h-7" />
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16">
+                                <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8m4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5"/>
+                                <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                              </svg>
                               </div>
                 
                               {/* Input Field */}
@@ -285,12 +297,15 @@ const SignUp = () => {
                   
 
                   <div className="flex flex-col gap-3">
-                            <label className="text-sm font-medium text-gray-300 mb-1">Confirm Password</label>
+                            
                             
                             <div className="flex  items-center w-80 border border-gray-600 rounded-3xl bg-[#0F0C0C] focus-within:ring-2 focus-within:ring-green-500">
                               {/* Left Icon Div */}
                               <div className="bg-[#030109] px-4 py-3 rounded-l-3xl border-r border-gray-600 flex items-center">
-                                <img src= {keyIcon} className="w-7 h-7" />
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16">
+                                <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8m4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5"/>
+                                <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                              </svg>
                               </div>
 
                               {/* Input Field */}
@@ -314,7 +329,7 @@ const SignUp = () => {
                 Sign Up
               </button>
 
-              <div className="flex justify-between mb-2 self-center items-center text-sm mt-3">
+              <div className="flex justify-between mb-5 self-center items-center text-sm ">
                     <Link to="/login" className="text-[#0A1CB9] font-semibold  transition">
                       Already have an account?
                     </Link>

@@ -24,7 +24,7 @@ const others = [true, false, false, false, false, false, false, false, false, tr
 
 const ComparisonTable = () => {
   return (
-    <div className="flex justify-center mt-5 items-center w-full bg-[#090707] py-1 px-5">
+    <div className="flex justify-center mt-5 items-center w-ful   bg-[#090707] py-1 px-5">
     <div className="overflow-x-auto w-full max-w-5xl">
       <table className="w-full border-collapse bg-[#0f0c0c] text-white shadow-lg table-fixed">
         <thead>

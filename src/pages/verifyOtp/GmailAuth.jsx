@@ -48,6 +48,7 @@ const GmailAuth = () => {
     }
   };
 
+
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-2xl font-semibold">Verify OTP from Gmail</h1>
@@ -61,7 +62,7 @@ const GmailAuth = () => {
       <button className="btn mt-4" onClick={handleVerifyOtp}>
         Verify OTP
       </button>
-   
+
       
       <Toaster/>
     </div>
