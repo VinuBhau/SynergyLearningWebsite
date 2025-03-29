@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 export default function PdfViewer({ pdfUrl , PreviewMode}) {
   const [numPages, setNumPages] = useState(0);
-  const numPagesRef = useRef(0); // ✅ Avoid unnecessary re-renders
+  const numPagesRef = useRef(0);
   const canvasRefs = useRef([]);
 
   useEffect(() => {
@@ -21,15 +21,15 @@ export default function PdfViewer({ pdfUrl , PreviewMode}) {
 
     
 
-    let renderTasks = []; // ✅ Store active render tasks to cancel if needed
+    let renderTasks = []; 
 
     getDocument(pdfUrl)
       .promise.then((pdf) => {
-        if (numPagesRef.current === pdf.numPages) return; // ✅ Prevent redundant updates
+        if (numPagesRef.current === pdf.numPages) return; 
         numPagesRef.current = pdf.numPages;
-        setNumPages(pdf.numPages); // ✅ Update state only if necessary
+        setNumPages(pdf.numPages); 
 
-        canvasRefs.current = new Array(pdf.numPages); // ✅ Reset canvasRefs to avoid stale data
+        canvasRefs.current = new Array(pdf.numPages); 
 
         for (let i = 1; i <= pdf.numPages; i++) {
           pdf.getPage(i).then((page) => {
@@ -50,7 +50,7 @@ export default function PdfViewer({ pdfUrl , PreviewMode}) {
       .catch((error) => console.error("Error loading PDF:", error));
 
     return () => {
-      // ✅ Cancel all ongoing render tasks when pdfUrl changes
+
       renderTasks.forEach((task) => task.cancel && task.cancel());
     };
   }, [pdfUrl,PreviewMode]);
