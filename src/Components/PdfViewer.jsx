@@ -3,7 +3,7 @@ import { getDocument, GlobalWorkerOptions } from "pdfjs-dist";
 import pdfWorker from "pdfjs-dist/build/pdf.worker.min?url"; // Import worker as URL
 import { useEffect, useRef, useState } from "react";
 
-export default function PdfViewer({ pdfUrl }) {
+export default function PdfViewer({ pdfUrl , PreviewMode}) {
   const [numPages, setNumPages] = useState(0);
   const numPagesRef = useRef(0); // ✅ Avoid unnecessary re-renders
   const canvasRefs = useRef([]);
@@ -15,8 +15,11 @@ export default function PdfViewer({ pdfUrl }) {
 
     const windowWidth = window.innerWidth;
     var scaleVal = 1.4;
+    
     if (windowWidth >= 490 && windowWidth <= 768) scaleVal = 0.8;
     else if (windowWidth <= 490) scaleVal = 0.5;
+
+    
 
     let renderTasks = []; // ✅ Store active render tasks to cancel if needed
 
@@ -50,15 +53,15 @@ export default function PdfViewer({ pdfUrl }) {
       // ✅ Cancel all ongoing render tasks when pdfUrl changes
       renderTasks.forEach((task) => task.cancel && task.cancel());
     };
-  }, [pdfUrl]);
+  }, [pdfUrl,PreviewMode]);
 
   return (
-    <div className="w-full h-screen overflow-auto p-4">
+    <div className={`w-full    h-screen overflow-auto p-4 ${PreviewMode ? 'w-[1700px] h-[800px]':''} `}>
       {Array.from({ length: numPages }, (_, i) => (
         <canvas
           key={i}
           ref={(el) => (canvasRefs.current[i] = el)}
-          className="border shadow-lg mb-4"
+          className={`border shadow-lg mb-4 ${PreviewMode ? 'w-[1300px]':''} `}
         />
       ))}
     

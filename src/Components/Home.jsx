@@ -6,7 +6,7 @@ import LogOut from '../pages/LogOut/Logout';
 import ComparisonTable from './ComparisonTable';
 import InstagramIcon from '/instagram-logo-instagram-icon-transparent-free-png 1.svg';
 import LinkedInIcon from '/linkedin-logo-linkedin-icon-transparent-free-png 1.svg';
-import SynergyIcon from '/LogoSynergy.jpeg';
+import SynergyIcon from '/SynergyNewIcon.png';
 import YoutubeIcon from '/youtube-icon-512x511-vupixj7v-removebg-preview 1.svg';
 const Home = () => {
 
@@ -78,7 +78,7 @@ const Home = () => {
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
-    animation: 'scrollImages 120s linear infinite',  // 10s for the animation duration, adjust to control speed
+    animation: 'scrollImages 80s linear infinite',  // 10s for the animation duration, adjust to control speed
   };
 
  
@@ -151,16 +151,16 @@ const Home = () => {
     <div className="bg-[#090707] w-screen min-h-screen lg:min-h-screen flex flex-col items-center overflow-hidden px-4">
     
     <div className="w-full flex flex-row justify-between items-center mt-4">
-      <img src={SynergyIcon}  className="ml-0 rounded-full lg:ml-2 lg:mt-2 w-20 h-20 " />
+      <img src={SynergyIcon}  className="ml-0 rounded-full lg:ml-2 lg:mt-2 w-16 h-16 lg:w-20 lg:h-20 " />
 
        {/* Desktop Navigation */}
-      <div className=" md:flex flex-row gap-10 justify-center items-center mr-5">
+      <div className=" flex flex-row gap-6 lg:gap-10 justify-center items-center mr-5">
       <Link to="/courses" className="text-white text-lg font-semibold" >
-            <div className='w-[200px] h-[50px] flex flex-row gap-3 items-center justify-center p-2 rounded-3xl bg-[#1c2e95]'>
+            <div className='lg:w-[200px] lg:h-[50px] w-[100px] h-[45px] flex flex-row gap-1.5 lg:gap-3 items-center justify-center p-2 rounded-3xl bg-[#d72c2c]'>
             <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" className="bi bi-ui-checks-grid w-[20px] h-[20px]" viewBox="0 0 16 16">
               <path d="M2 10h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1m9-9h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1m0 9a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1zm0-10a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM2 9a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2zm7 2a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2zM0 2a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm5.354.854a.5.5 0 1 0-.708-.708L3 3.793l-.646-.647a.5.5 0 1 0-.708.708l1 1a.5.5 0 0 0 .708 0z"/>
             </svg>
-                <h1 className='text-white text-center font-medium text-xl'>Dashboard</h1>
+                <h1 className='text-white text-center font-medium text-xs lg:text-xl'>Dashboard</h1>
             </div>
       </Link>
 
@@ -171,36 +171,32 @@ const Home = () => {
 
       </div>
 
-      
-
-
-    
-
     </div>
 
-    <div className='text-center text-white  text-2xl mt-5 md:text-4xl max-w-full md:max-w-4xl font-mono mb-6 md:mb-10 h-[80px] md:h-[100px]'>
+    <div className='text-center text-white text-lg lg:text-4xl mt-10  max-w-full md:max-w-4xl font-mono mb-6 md:mb-10 h-[80px] md:h-[100px]'>
           Together We Believe, Together We Achieve
     </div>
 
-    <div className='flex flex-col  w-[1200px] h-[550px] bg-[#110b0b] rounded-2xl'>
-      <h1 className='text-white mt-10  font-bold text-2xl text-center'>Meet Our Mentors from IIT'S and NIT'S</h1>
+    <div className='flex flex-col justify-center items-center w-[400px] lg:w-[1200px] h-[550px] bg-[#110b0b] rounded-2xl'>
       
-        <div className='flex flex-row w-[1187px] h-10 justify-between'>
+      
+        <div className='flex flex-row w-[400px] lg:w-[1187px] h-10 justify-between'>
           <button
               onClick={goToPrevious}
-              className=" bg-black text-white p-2 ml-5 self-start rounded-full w-10 h-10 "
+              className=" bg-black text-white lg:p-2 ml-2 lg:ml-5 self-start rounded-full w-7 h-7 lg:w-10 lg:h-10 "
             >
               &#60;
           </button>
+          <h1 className='text-white  font-bold text-base lg:text-2xl text-center'>Meet Our Mentors from IIT'S and NIT'S</h1>
           <button
               onClick={goToNext}
-              className=" bg-black text-white p-2 self-end rounded-full w-10 h-10 "
+              className=" bg-black text-white mb-3 lg:p-2 lg:mb-0  self-end rounded-full w-7 h-7 lg:w-10 lg:h-10 "
             >
               &#62;
           </button>
         </div>
 
-        <div className='flex flex-row gap-5 w-[1087px]  ml-10 self-start overflow-hidden'>
+        <div className='flex flex-row gap-5 w-[350px] lg:w-[1087px]  ml-10 self-start overflow-hidden'>
             
           
           <div
@@ -228,7 +224,7 @@ const Home = () => {
         {animationStyle}
       </style>
       
-      <div className='flex flex-row gap-44 w-[1200px] mt-28 h-[500px] rounded-2xl bg-[#120c0c] justify-center items-center'>
+      <div className='flex flex-col lg:flex-row  gap-10 lg:gap-44 w-[400px] h-[860px] lg:w-[1200px] mt-28 lg:h-[500px] rounded-2xl bg-[#120c0c] justify-center items-center'>
         <div className='flex flex-col gap-10'>
           <h1 className='text-[#f03232] font-semibold text-2xl  text-left'>Features</h1>
           <div className='flex flex-col gap-4'>
@@ -242,7 +238,7 @@ const Home = () => {
           </div>
         </div>
 
-        <div className='flex flex-col w-[600px] h-[400px]  '>
+        <div className='flex flex-col w-[300px] lg:w-[600px] h-[400px]  '>
             <div className=' mt-2 overflow-hidden relative justify-center'>
                 <div  style={imageListStyle}>
                   {Images.concat(Images).map((image, index) => ( // Duplicate the images for the continuous loop
@@ -255,34 +251,35 @@ const Home = () => {
         </div>
       </div>
 
-    <h1 className='text-white font-bold text-2xl text-center mt-32'>Student Reviews and Testimonials</h1>
-    <div className='flex flex-row w-[1400px] justify-between'>
+    <div className='flex flex-row mt-32 w-[300px] lg:w-[1400px] justify-between'>
       <button
           onClick={goToPreviousTestimonial}
           className=" bg-black text-white p-2 self-start rounded-full w-10 h-10 "
         >
           &#60;
       </button>
+      <h1 className='text-white font-bold text-xl lg:text-2xl text-center '>Student Reviews and Testimonials</h1>
+
       <button
           onClick={goToNextTestimonial}
-          className=" bg-black text-white p-2 self-end rounded-full w-10 h-10 "
+          className=" bg-black text-white mb-4 lg:mb-0 p-2 self-end rounded-full w-10 h-10 "
         >
           &#62;
       </button>
     </div>
-    <div className='flex flex-row mt-10 gap-10 w-[1400px] h-[290px] overflow-hidden'>
+    <div className='flex flex-row    mt-10 gap-10 w-[400px] lg:w-[1400px]  lg:h-[340px] overflow-hidden'>
       
       {Testimonials.map((testimonial, index) => (
 
-      <div className='bg-[#12161b]   flex flex-col gap-5 rounded-2xl transition-transform duration-500   ' style={{
+      <div className='bg-[#12161b] lg:justify-center lg:items-center flex flex-col h-[360px] lg:h-[340px] gap-5 rounded-2xl transition-transform duration-500   ' style={{
         transform: `translateX(-${currentTestimonial * 100}%)`,
       }}>
-        <div className='flex flex-row w-[440px]  gap-16'>
+        <div className='flex flex-row w-[380px] lg:w-[440px]  h-[100px]  gap-16'>
 
           <img src={testimonial.image} className='w-[70px] h-[70px] mt-5 ml-5 rounded-full' />
           <div className='flex flex-col mt-5 gap-2'>
-              <h1 className='text-[#d54521] font-bold text-2xl'>Ruhi Shanbag</h1>
-              <h1 className='text-[#ffffff] font-medium text-lg'>4 Year Course Student</h1>
+              <h1 className='text-[#d54521] font-bold text-lg lg:text-2xl'>Ruhi Shanbag</h1>
+              <h1 className='text-[#ffffff] font-medium text-base lg:text-lg'>4 Year Course Student</h1>
           </div>
         </div>
 
@@ -326,24 +323,24 @@ const Home = () => {
 
       
           <div className="flex flex-col gap-[15px] w-full lg:w-[300px] ">
-            <h1 className="text-[#0B02FF] text-lg font-semibold md:text-xl mt-[10px] lg:mt-[30px]">Quick Links</h1>
+            <h1 className="text-[#0B02FF]   text-lg font-semibold md:text-xl mt-[10px] lg:mt-[30px]">Quick Links</h1>
             <div className="flex flex-col gap-[20px]">
-              <Link to="/about" className="text-white text-base font md:text-lg cursor-pointer">Company</Link>
-              <Link to="/about" className="text-white text-base font md:text-lg cursor-pointer">About</Link>
-              <Link to="/Contact" className="text-white text-base md:text-lg cursor-pointer">Contact</Link>
-              <Link to="/PrivacyPolicy" className="text-white text-base md:text-lg cursor-pointer">Privacy Policy</Link>
+              <Link to="/about" className=" text-white text-base font-medium md:text-lg cursor-pointer">Company</Link>
+              <Link to="/about" className="text-white text-base font-medium  md:text-lg cursor-pointer">About</Link>
+              <Link to="/Contact" className="text-white text-base font-medium  md:text-lg cursor-pointer">Contact</Link>
+              <Link to="/PrivacyPolicy" className="text-white font-medium  text-base md:text-lg cursor-pointer">Privacy Policy</Link>
               <Link to="/Tnc" className="text-white text-base md:text-lg cursor-pointer">Terms And Conditions</Link>
               <Link to="/notes" className="text-white text-base md:text-lg cursor-pointer">Notes</Link>
           
             </div>
           </div>
 
-          <div className="flex flex-col gap-[30px] w-full lg:w-[200px]">
+          <div className="flex flex-col gap-[17px] w-full lg:w-[200px]">
             <h1 className="text-[#0B02FF] text-lg font-semibold md:text-xl mt-[10px] lg:mt-[30px]">Navigate To</h1>
-            <div className="flex flex-col gap-[20px]">
-              <Link to="/CSCluster" className="text-white text-base md:text-lg cursor-pointer">Activities</Link>
-              <Link to="/ECCluster" className="text-white text-base md:text-lg cursor-pointer">Mentorship Programs</Link>
-              <Link to="/ECCluster" className="text-white text-base md:text-lg cursor-pointer">Sessions</Link>
+            <div className="flex flex-col gap-[18px]">
+              <Link to="/CSCluster" className="text-white font-medium text-base md:text-lg cursor-pointer">Activities</Link>
+              <Link to="/ECCluster" className="text-white font-medium text-base md:text-lg cursor-pointer">Mentorship Programs</Link>
+              <Link to="/ECCluster" className="text-white font-medium text-base md:text-lg cursor-pointer">Sessions</Link>
 
             </div>
           </div>
@@ -364,7 +361,7 @@ const Home = () => {
 
           <div className="flex flex-row items-center gap-2  lg:mt-8">
             <i className="bi bi-c-circle text-white text-base md:text-lg"></i>
-            <h1 className="text-white  text-sm md:text-lg leading-none">
+            <h1 className="text-white font-medium  text-sm md:text-lg leading-none">
               2025 by <span className="text-[#0B02FF] font-semibold">Synergy Learning</span>
             </h1>
           </div>

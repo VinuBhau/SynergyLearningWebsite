@@ -185,6 +185,9 @@ useEffect(() => {
     return () => window.removeEventListener('resize', handleResize);
   }, [isMobile]);
 
+  const [PreviewMode,setPreviewMode] = useState(false);
+
+
   return (
     
 <div className="w-screen h-screen bg-[#090707] ">
@@ -242,15 +245,33 @@ useEffect(() => {
                                                         </svg>
                                                         <h1 className='text-white text-sm '>Notes</h1>
                                                     </div>
-            
+
                                                 </Link>
                                             </div>
-                        </div>
+            </div>
+
+          <div className='flex flex-row gap-5'>
+            <div className='flex flex-col gap-3'>
+              <div className={`flex flex-row gap-5 ml-20 mt-10  `}>
+                  <button
+                    className=" mb-4 bg-red-500 w-[200px] h-[50px] text-white px-4 py-2 rounded"
+                    onClick={() => setPreviewMode(true)}
+                  >
+                    Preview Mode
+                  </button>
+
+                  <button
+                    className=" mb-4 bg-red-500 w-[200px] h-[50px]  text-white px-4 py-2 rounded"
+                    onClick={() => setPreviewMode(false)}
+                  >
+                    Normal Mode
+                  </button>
+            </div>
 
             {/* PDF Viewer Section */}
             <div 
-              className={`w-full z-50 lg:ml-24  min-h-screen md:w-3/4 bg-[#000000] mt-5  border-2 border-custom-dark rounded-md shadow-lg p-4 overflow-auto 
-                ${isMobile && !showPdfOnMobile ? 'hidden' : 'block'}`}
+              className={` z-50 lg:ml-24  min-h-screen md:w-3/4 bg-[#1d1919] mt-5  border-[#180a0a] border-custom-dark rounded-md shadow-lg p-4 overflow-auto 
+                ${isMobile && !showPdfOnMobile ? 'hidden' : 'block'} ${PreviewMode ? 'w-[1290px]' : ''} `}
             >
               {/* Back to Notes Button on Mobile */}
               {isMobile && showPdfOnMobile && (
@@ -262,6 +283,7 @@ useEffect(() => {
                 </button>
               )}
 
+
               {currentPdfLink ? (
                 // <div onClick={()=>window.location.reload()} className="relative w-full h-[80vh] sm:h-[90vh] md:h-screen">
                 // <iframe
@@ -270,14 +292,19 @@ useEffect(() => {
                 //   title="PDF Viewer"
                 //   loading="lazy"
                 // /></div>
-                <PdfViewer pdfUrl={currentPdfLink}/>
+
+                  <PdfViewer pdfUrl={currentPdfLink} PreviewMode={PreviewMode}/>
+                  
               ) : (
                 <div className="text-center text-gray-500">Select a PDF to view</div>
               )}
             </div>
 
+            <div className='mt-[100px]'></div>
+          </div>
+
             {/* Notes Section (Always Visible on Desktop, Toggles on Mobile) */}
-            <div className={`flex flex-col lg:ml-0 ml-20 w-full md:w-1/3 transition-all duration-700 ease-in-out ${isMobile && showPdfOnMobile ? 'hidden' : 'block'}`}>
+            <div className={`flex z-10 flex-col lg:ml-0 ml-20 w-full md:w-1/3 transition-all duration-700 ease-in-out ${isMobile && showPdfOnMobile ? 'hidden' : 'block'} ${PreviewMode ? 'hidden' : '' }`}>
               <div className="text-white text-3xl text-center">Notes</div>
 
               {CSRelatedPdf.length > 0 && (
@@ -347,6 +374,9 @@ useEffect(() => {
                 </div>
               )}
             </div>
+          </div>
+
+            
         </div>
 
       <Toaster />
