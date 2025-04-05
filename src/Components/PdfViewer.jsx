@@ -3,9 +3,10 @@ import { getDocument, GlobalWorkerOptions } from "pdfjs-dist";
 import pdfWorker from "pdfjs-dist/build/pdf.worker.min?url"; // Import worker as URL
 import { useEffect, useRef, useState } from "react";
 
-export default function PdfViewer({ pdfUrl , PreviewMode}) {
+export default function PdfViewer({pdfUrl}) {
+
   const [numPages, setNumPages] = useState(0);
-  const numPagesRef = useRef(0);
+  const numPagesRef = useRef(0); // ✅ Avoid unnecessary re-renders
   const canvasRefs = useRef([]);
 
   useEffect(() => {
@@ -21,15 +22,15 @@ export default function PdfViewer({ pdfUrl , PreviewMode}) {
 
     
 
-    let renderTasks = []; 
+    let renderTasks = []; // ✅ Store active render tasks to cancel if needed
 
     getDocument(pdfUrl)
       .promise.then((pdf) => {
-        if (numPagesRef.current === pdf.numPages) return; 
+        if (numPagesRef.current === pdf.numPages) return; // ✅ Prevent redundant updates
         numPagesRef.current = pdf.numPages;
-        setNumPages(pdf.numPages); 
+        setNumPages(pdf.numPages); // ✅ Update state only if necessary
 
-        canvasRefs.current = new Array(pdf.numPages); 
+        canvasRefs.current = new Array(pdf.numPages); // ✅ Reset canvasRefs to avoid stale data
 
         for (let i = 1; i <= pdf.numPages; i++) {
           pdf.getPage(i).then((page) => {
@@ -50,22 +51,25 @@ export default function PdfViewer({ pdfUrl , PreviewMode}) {
       .catch((error) => console.error("Error loading PDF:", error));
 
     return () => {
-
+      // ✅ Cancel all ongoing render tasks when pdfUrl changes
       renderTasks.forEach((task) => task.cancel && task.cancel());
     };
-  }, [pdfUrl,PreviewMode]);
+  }, [pdfUrl]);
 
   return (
-    <div className={`w-full    h-screen overflow-auto p-4 ${PreviewMode ? 'w-[1700px] h-[800px]':''} `}>
-      {Array.from({ length: numPages }, (_, i) => (
-        <canvas
-          key={i}
-          ref={(el) => (canvasRefs.current[i] = el)}
-          className={`border shadow-lg mb-4 ${PreviewMode ? 'w-[1300px]':''} `}
-        />
-      ))}
-    
-    </div>
+    <div className={`h-screen z-60  justify-center items-center overflow-y-auto w-full bg-black `}
+    >
+      
+        {Array.from({ length: numPages }, (_, i) => (
+          <canvas
+            key={i}
+            ref={(el) => (canvasRefs.current[i] = el)}
+            className={`border shadow-lg  mb-4 w-[330px] lg:w-[900px]`}
+          />
+        ))}
+
+  </div>
+
   );
 }
 
