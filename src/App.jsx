@@ -22,7 +22,7 @@ function App() {
     <div className='top-0 left-0'>
       <Routes>
         <Route path='/login' element={<Login />} />
-        <Route path='/' element={authUser === null ? <Navigate to="/login" /> : <Home />} />
+        <Route path='/' element={<Home />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/Verify-Gmail' element={<VerifyGmail />} />
